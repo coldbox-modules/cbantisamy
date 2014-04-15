@@ -1,0 +1,24 @@
+********************************************************************************
+INSTRUCTIONS
+********************************************************************************
+Just drop into your modules folder or use the box-cli to install
+
+box install antisamy
+
+The module registers the following mapping in WireBox: antisamy@antisamy
+that you can use to clean a-la-carte intrusions.  You can also activate different
+policies and and auto clean interceptor that will clean incoming variables for you.
+
+Here are the module settings:
+
+// module settings - stored in modules.name.settings
+settings = {
+	// The library path
+	libPath = getDirectoryFromPath( getCurrentTemplatePath() ) & "model/lib",
+	// Activate auto request capture cleanups
+	autoClean = false,
+	// Default Policy to use, available are: antisamy, ebay, myspace, slashdot and tinymce
+	defaultPolicy = "ebay",
+	// Custom Policy absolute path, leave empty if not used
+	customPolicy = ""
+};

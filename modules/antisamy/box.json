@@ -1,0 +1,19 @@
+{
+	"name" 		: "AntiSamy",
+	"author" 	: "Luis Majano <lmajano@ortussolutions.com",
+	"version"	: "1.0.0",
+	"slug"		: "antisamy",
+	"directory"	: "/modules",
+	"type"		: "modules",
+	"engines"	: [
+		{ "type" : "railo", "version" : ">3.1" },
+		{ "type" : "adobe", "version" : ">9.0" },
+		{ "type" : "coldbox", "version" : ">3.5" }
+	],
+	"dependencies" 	:{
+		"javaloader" : ">1.0"
+	},
+	"devdependencies" : {
+		"testbox" : ">1.1"		
+	}
+}
