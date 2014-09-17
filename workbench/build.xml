@@ -48,7 +48,8 @@
 		
 		<!-- Build Label -->
 		<property name="build.label" value="${project.name}-${project.version}.${build.number}-${start.DSTAMP}${start.TSTAMP}"/>
-		
+		<!-- Get Build Dependencies -->
+ 		<antcall target="getDependencies" />
 		<!-- Cleanup + Init -->
 		<delete dir="${dir.build}" />
 		<mkdir dir="${dir.build}"/>
@@ -110,5 +111,17 @@
     		<property name="environment" value="${environment}" />
         </subant>
     </target>
+    
+    <!-- Get Dependencies -->
+	<target name="getDependencies" description="Get all the necessary dependencies for the build process using: box.repo.url">
+		<!-- Download Dependency via box task-->
+ 		<box-dependency artifactID="javaloader" 
+ 						groupID="ortussolutions/coldbox-modules" 
+ 						version="${javaloader.version}"
+ 						extension="zip"
+ 						destination="modules/javaloader"
+ 						unzip="true"
+ 						removeZip="true"/>
+	</target>
 
 </project>
