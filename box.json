@@ -49,7 +49,7 @@
         "antisamy" : "1.0.0"
     },
     "devDependencies":{
-        "coldbox" : "4.0.0",
+        "coldbox-be" : "4.0.0",
         "testbox" : "2.0.0"
     },
     "installPaths":{
