@@ -7,7 +7,7 @@
 	"homepage"	: "http://www.coldbox.org",
 	"documentation"		: "http://wiki.coldbox.org",
 	"repository"		: { "type" : "git", "url" : "https://github.com/ColdBox/cbox-antisamy" },
-	"shortDescription"	: "A module to class load, compile and do much more with Java",
+	"shortDescription"	: "OWASP AntiSamy Project that provides XSS cleanup operations to ColdBox applications",
 	"license"			: [ 
 		{ "type" : "Apache2", "url" : "http://www.apache.org/licenses/LICENSE-2.0.html" } 
 	],
