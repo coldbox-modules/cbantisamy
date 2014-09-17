@@ -1,3 +1,9 @@
+/**
+*********************************************************************************
+* Copyright Since 2005 ColdBox Framework by Luis Majano and Ortus Solutions, Corp
+* www.coldbox.org | www.luismajano.com | www.ortussolutions.com
+********************************************************************************
+*/
 component {
 
 	// Module Properties
@@ -20,7 +26,7 @@ component {
 		// module settings - stored in modules.name.settings
 		settings = {
 			// The library path
-			libPath = getDirectoryFromPath( getCurrentTemplatePath() ) & "model/lib",
+			libPath = getDirectoryFromPath( getCurrentTemplatePath() ) & "models/lib",
 			// Activate auto request capture cleanups
 			autoClean = false,
 			// Default Policy to use, available are: antisamy, ebay, myspace, slashdot and tinymce
@@ -40,7 +46,7 @@ component {
 
 		// Binder Mappings
 		binder.map( "AntiSamy@AntiSamy" )
-			.to( "#moduleMapping#.model.AntiSamy" );
+			.to( "#moduleMapping#.models.AntiSamy" );
 
 	}
 

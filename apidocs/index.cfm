@@ -1,7 +1,7 @@
 <cfparam name="url.version" default="0">
 <cfparam name="url.path" 	default="#expandPath( "./AntiSamy-APIDocs" )#">
 <cfscript>
-	docName = "JavaLoader-APIDocs";
+	docName = "AntiSamy-APIDocs";
 	base = expandPath( "/antisamy" );
 
 	colddoc 	= new ColdDoc();
