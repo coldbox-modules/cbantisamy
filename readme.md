@@ -13,9 +13,8 @@ Apache License, Version 2.0.
 - http://www.coldbox.org/forgebox/antisamy
 
 ##SYSTEM REQUIREMENTS
-- Railo 3.2 and above
-- ColdFusion MX 9 and above
-- ColdBox 3.5 and above
+- Railo 4+
+- ColdFusion 9+
 
 ********************************************************************************
 Copyright Since 2005 ColdBox Framework by Luis Majano and Ortus Solutions, Corp
