@@ -1,6 +1,6 @@
 {
 	"name" 		: "AntiSamy",
-	"version"	: "1.0.0",
+	"version"	: "1.0.0+@build.number@",
 	"author" 	: "Luis Majano <lmajano@ortussolutions.com",
 	"slug"		: "antisamy",
 	"type"		: "modules",
@@ -20,5 +20,6 @@
 	],
 	"dependencies" 	:{
 		"javaloader" : "1.0.0"
-	}
+	},
+	"ignore" : [ "apidocs/*", "readme.md", "instructions.md", "changelog.md" ]
 }

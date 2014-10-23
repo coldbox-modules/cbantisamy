@@ -10,7 +10,7 @@
 component singleton{
 
 	// DI
-	property name="moduleSettings" 	inject="coldbox:moduleSettings:antisamy";
+	property name="moduleSettings" 	inject="coldbox:setting:antisamy";
 	property name="javaLoader"		inject="loader@javaloader";
 
 	/**
