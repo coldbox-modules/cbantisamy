@@ -1,13 +1,12 @@
-INSTRUCTIONS
-============
-
+#INSTRUCTIONS
 Just drop into your **modules** folder or use the box-cli to install
 
-`box install antisamy`
+`box install cbantisamy`
 
-The module registers the following mapping in WireBox: `antisamy@antisamy`
-that you can use to clean input a-la-carte intrusions.  You can also activate different
-policies and an auto clean interceptor that will clean incoming variables for you automatically.
+The module registers the following mapping in WireBox: `antisamy@cbantisamy`
+that you can use to clean input a-la-carte intrusions.  You can also activate different policies and an auto clean interceptor that will clean incoming variables for you automatically.  The main methods to clean input are:
+
+- `clean( HTMLData, policyFile='ebay', resultsObject=false)`
 
 ## Settings
 Here are the module settings you can place in your `ColdBox.cfc` under an `antisamy` structure

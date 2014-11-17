@@ -7,7 +7,7 @@
 component {
 
 	// Module Properties
-	this.title 				= "antisamy";
+	this.title 				= "CBAntiSamy";
 	this.author 			= "Ortus Solutions, Corp";
 	this.webURL 			= "http://www.ortussolutions.com";
 	this.description 		= "Leverages the AntiSamy libraries for XSS cleanups";
@@ -17,14 +17,16 @@ component {
 	// If true, looks for layouts in the parent first, if not found, then in module. Else vice-versa
 	this.layoutParentLookup = true;
 	// Module Entry Point
-	this.entryPoint			= "antisamy";
+	this.entryPoint			= "cbantisamy";
+	// CF Mapping
+	this.cfmapping			= "cbantisamy";
 	// Module Dependencies That Must Be Loaded First, use internal names or aliases
-	this.dependencies		= [ "javaloader" ];
+	this.dependencies		= [ "cbjavaloader" ];
 
 	function configure(){
 		// Custom Declared Interceptors
 		interceptors = [
-			{ class="#moduleMapping#.interceptors.AutoClean", name="AutoClean@AntiSamy" }
+			{ class="#moduleMapping#.interceptors.AutoClean", name="AutoClean@CBAntiSamy" }
 		];
 	}
 
@@ -36,7 +38,7 @@ component {
 		// parse parent settings
 		parseParentSettings();
 		// Class load antisamy
-		controller.getWireBox().getInstance( "loader@javaloader" ).appendPaths( settings.antisamy.libPath );
+		controller.getWireBox().getInstance( "loader@cbjavaloader" ).appendPaths( settings.antisamy.libPath );
 	}
 
 	/**

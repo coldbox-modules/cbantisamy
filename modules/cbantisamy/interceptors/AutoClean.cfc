@@ -7,16 +7,15 @@
 */
 component extends="coldbox.system.Interceptor"{
 
-	// DI: This is a provider as it needs to javaload first
-	property name="antisamy" inject="provider:AntiSamy@AntiSamy";
+	// DI: This is a provider as it needs to javaloaded first
+	property name="antisamy" inject="provider:AntiSamy@CBAntiSamy";
 
 	// On request capture
 	function onRequestCapture( event, interceptData, buffer ){
 		// if not activated, just exist
-		if( getSetting( "antiSamy" ).autoClean ){ return; }
+		if( getSetting( "antisamy" ).autoClean ){ return; }
 		// rc reference
 		var rc = event.getCollection();
-
 		// cleanup
 		for( var key in rc ){
 			if( structKeyExists( rc, key ) and isSimpleValue( rc[ key ] ) ){

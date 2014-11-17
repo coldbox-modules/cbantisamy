@@ -1,14 +1,14 @@
 <cfparam name="url.version" default="0">
-<cfparam name="url.path" 	default="#expandPath( "./AntiSamy-APIDocs" )#">
+<cfparam name="url.path" 	default="#expandPath( "./CBAntiSamy-APIDocs" )#">
 <cfscript>
-	docName = "AntiSamy-APIDocs";
-	base = expandPath( "/antisamy" );
+	docName = "CBAntiSamy-APIDocs";
+	base = expandPath( "/cbantisamy" );
 
 	colddoc 	= new ColdDoc();
-	strategy 	= new colddoc.strategy.api.HTMLAPIStrategy( url.path, "AntiSamy v#url.version#" );
+	strategy 	= new colddoc.strategy.api.HTMLAPIStrategy( url.path, "CBAntiSamy v#url.version#" );
 	colddoc.setStrategy( strategy );
 
-	colddoc.generate( inputSource=base, outputDir=url.path, inputMapping="antisamy" );
+	colddoc.generate( inputSource=base, outputDir=url.path, inputMapping="cbantisamy" );
 </cfscript>
 
 <!---

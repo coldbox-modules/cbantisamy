@@ -7,11 +7,11 @@
 * http://www.owasp.org/index.php/Category:OWASP_AntiSamy_Project
 * http://code.google.com/p/owaspantisamy/downloads/list
 */
-component singleton{
+component singleton threadsafe{
 
 	// DI
 	property name="moduleSettings" 	inject="coldbox:setting:antisamy";
-	property name="javaLoader"		inject="loader@javaloader";
+	property name="javaLoader"		inject="loader@cbjavaloader";
 
 	/**
 	* Constructor
@@ -46,7 +46,12 @@ component singleton{
 
 	/**
 	* clean HTML from XSS scripts using the AntiSamy project. The available policies are antisamy, ebay, myspace, slashdot, custom
-	*/
+	* @HTMLData The html data to clean
+	* @policyFile The policy file to use, by default it uses the ebay policy file
+	* @resultsObject By default it just returns the cleaned HTML, but if this is true, it will return the actual Java results object.
+	* 
+	* @return HTMl data or an instance of org.owasp.validator.html.CleanResults
+ 	*/
 	any function HTMLSanitizer( required HTMLData, string policyFile="ebay", boolean resultsObject=false ){
 		// you can use any xml, our your own customised policy xml
 		var antiSamy = javaLoader.create( "org.owasp.validator.html.AntiSamy" );

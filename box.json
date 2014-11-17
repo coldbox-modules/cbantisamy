@@ -46,14 +46,14 @@
         
     ],
     "dependencies":{
-        "antisamy" : "1.0.0"
+        "cbjavaloader":"1.0.0"
     },
     "devDependencies":{
-        "coldbox-be" : "4.0.0",
-        "testbox" : "2.0.0"
+        "coldbox-be":"4.0.0",
+        "testbox":"2.0.0"
     },
     "installPaths":{
-        "antisamy" : "modules/antisamy"
+        "cbjavaloader":"modules/cbjavaloader"
     },
     "ignore":[
         

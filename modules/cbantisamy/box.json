@@ -1,6 +1,6 @@
 {
 	"name" 		: "AntiSamy",
-	"version"	: "1.0.0+@build.number@",
+	"version"	: "1.0.0",
 	"author" 	: "Luis Majano <lmajano@ortussolutions.com",
 	"slug"		: "antisamy",
 	"type"		: "modules",
@@ -19,7 +19,7 @@
 		{ "type" : "adobe", "version" : ">9.02" }
 	],
 	"dependencies" 	:{
-		"javaloader" : "1.0.0"
+		"cbjavaloader" : "1.0.0"
 	},
-	"ignore" : [ "apidocs/*", "readme.md", "instructions.md", "changelog.md" ]
+	"ignore" : []
 }

@@ -42,7 +42,7 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/root"{
 	}
 
 	private function getLoader(){
-		return getWireBox().getInstance( "antiSamy@antiSamy" );
+		return getWireBox().getInstance( "antiSamy@cbantiSamy" );
 	}
 
 }

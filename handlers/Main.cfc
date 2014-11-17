@@ -3,7 +3,7 @@
 */
 component{
 
-	property name="antisamy" inject="antisamy@antisamy";
+	property name="antisamy" inject="antisamy@cbantisamy";
 
 	// Index
 	any function index( event,rc, prc ){
