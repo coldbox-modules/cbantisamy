@@ -7,11 +7,11 @@
 component {
 
 	// Module Properties
-	this.title 				= "CBAntiSamy";
+	this.title 				= "AntiSamy";
 	this.author 			= "Ortus Solutions, Corp";
 	this.webURL 			= "http://www.ortussolutions.com";
 	this.description 		= "Leverages the AntiSamy libraries for XSS cleanups";
-	this.version			= "1.0.0+@build.number@";
+	this.version			= "1.1.0+@build.number@";
 	// If true, looks for views in the parent first, if not found, then in the module. Else vice-versa
 	this.viewParentLookup 	= true;
 	// If true, looks for layouts in the parent first, if not found, then in module. Else vice-versa
@@ -56,8 +56,8 @@ component {
 		var configStruct 	= controller.getConfigSettings();
 		var antisamyDSL 	= oConfig.getPropertyMixin( "antisamy", "variables", structnew() );
 
-		//defaults
-		configStruct.antisamy = {
+		// Setup Default Settings
+		var defaults = {
 			// The library path
 			libPath = modulePath & "/models/lib",
 			// Activate auto request capture cleanups
@@ -67,8 +67,10 @@ component {
 			// Custom Policy absolute path, leave empty if not used
 			customPolicy = ""
 		};
+		if( !structKeyExists( configStruct, "antiSamy" ) ){ configStruct.antiSamy = {}; }
+		structAppend( configStruct.antiSamy, defaults );
 
-		// incorporate settings
+		// incorporate custom settings
 		structAppend( configStruct.antisamy, antisamyDSL, true );
 
 	}

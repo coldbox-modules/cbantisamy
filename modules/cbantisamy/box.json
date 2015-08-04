@@ -1,11 +1,11 @@
 {
 	"name" 		: "AntiSamy",
-	"version"	: "1.0.0",
+	"version"	: "1.1.0",
 	"author" 	: "Luis Majano <lmajano@ortussolutions.com",
-	"slug"		: "antisamy",
+	"slug"		: "cbantisamy",
 	"type"		: "modules",
-	"homepage"	: "http://www.coldbox.org",
-	"documentation"		: "http://wiki.coldbox.org",
+	"homepage"	: "https://github.com/ColdBox/cbox-antisamy",
+	"documentation"		: "https://github.com/ColdBox/cbox-antisamy",
 	"repository"		: { "type" : "git", "url" : "https://github.com/ColdBox/cbox-antisamy" },
 	"shortDescription"	: "OWASP AntiSamy Project that provides XSS cleanup operations to ColdBox applications",
 	"license"			: [ 
@@ -15,11 +15,14 @@
 		"Brad Wood <bdw429s@gmail.com>", "Curt Gratz <gratz@computerknowhow.com>"
 	],
 	"engines"	: [
-		{ "type" : "railo", "version" : ">4.1" },
+		{ "type" : "lucee", "version" : ">4.5" },
 		{ "type" : "adobe", "version" : ">9.02" }
 	],
 	"dependencies" 	:{
 		"cbjavaloader" : "1.0.0"
 	},
-	"ignore" : []
+    "ignore":[
+        "**/.*",
+        "tests/**"
+    ]
 }
