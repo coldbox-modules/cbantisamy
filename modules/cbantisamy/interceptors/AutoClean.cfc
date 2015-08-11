@@ -13,7 +13,7 @@ component extends="coldbox.system.Interceptor"{
 	// On request capture
 	function onRequestCapture( event, interceptData, buffer ){
 		// if not activated, just exist
-		if( getSetting( "antisamy" ).autoClean ){ return; }
+		if( getSetting( "antisamy" ).autoClean == false ){ return; }
 		// rc reference
 		var rc = event.getCollection();
 		// cleanup
