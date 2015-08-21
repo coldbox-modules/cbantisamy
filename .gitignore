@@ -9,3 +9,4 @@ tests/results
 modules/cbjavaloader
 coldbox/
 testbox/
+apidocs/docbox

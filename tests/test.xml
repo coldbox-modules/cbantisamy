@@ -32,6 +32,10 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 	<!-- FILL OUT WHERE REPORTING RESULTS ARE STORED --> 
 	<property name="report.dir"  				value="${basedir}/results" />
 	<property name="junitreport.dir"  			value="${report.dir}/junitreport" />
+	<!-- Box Server For Testing -->
+	<property name="server.dir"					location="../" />
+	<property name="server.port"				value="8585" />
+	<property name="url.runner"					value="http://127.0.0.1:${server.port}/tests/runner.cfm?" />
 	
 	<!-- Load Contrib Tasks -->
 	<path id="cp">
@@ -44,22 +48,6 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 	
 	<!-- init -->
 	<target name="init" description="Init the tests">
-		<!-- Default environment check, if not passed via -Denvironment -->
-		<condition property="environment" value="local">
-			<not><isset property="environment" /></not>
-		</condition>
-		<if>
-			<available file="test-${environment}.properties" />
-			<then>
-				<!-- Load env properties -->
-				<echo>Loading properties from environment: ${environment}</echo>
-				<loadproperties srcFile="test-${environment}.properties"/>
-			</then>
-		</if>
-		<!-- Load root properties -->
-		<echo>Loading base properties</echo>
-		<loadproperties srcFile="test.properties"/>
-		
 		<!-- Start Init -->
 		<delete dir="${report.dir}" />
 		<mkdir dir="${junitreport.dir}" />
@@ -70,6 +58,15 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 			<format property="TODAY" pattern="MM-dd-YYYY hh:mm:ss aa"/>
 		</tstamp>
 		<concat destfile="${report.dir}/latestrun.log">Tests ran at ${start.TODAY}</concat>
+		<!-- Install dependencies for project -->
+		<exec executable="box" dir="${server.dir}">
+			<arg line="install" />
+		</exec>
+		<!-- Startup the test server, wait for a few seconds for server to start -->
+		<exec executable="box" dir="${server.dir}">
+			<arg line="server start openbrowser=false --force port=${server.port}" />
+		</exec>
+		<sleep seconds="5"/>
 	</target>
 	
 	<!-- update permissions on reports -->
@@ -124,6 +121,10 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
         <echoproperties regex="^(test|total).*"/>
 		<!-- update permissions again -->
 		<antcall target="update.permissions" /> 
+		<!-- stop server -->
+		<exec executable="box" dir="${server.dir}">
+			<arg line="server stop" />
+		</exec>
         <!-- Fail build if they failed -->
         <fail if="test.failed"/>
 	</target>
@@ -195,6 +196,10 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
         <echoproperties regex="^(test|total).*"/>
 		<!-- update permissions again -->
 		<antcall target="update.permissions" /> 
+		<!-- stop server -->
+		<exec executable="box" dir="${server.dir}">
+			<arg line="server stop" />
+		</exec>
         <!-- Fail build if they failed -->
         <fail if="test.failed"/>
 	</target>
