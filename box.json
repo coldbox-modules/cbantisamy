@@ -50,10 +50,13 @@
     },
     "devDependencies":{
         "coldbox-be":"4.0.0",
-        "testbox":"2.0.0"
+        "testbox":"2.0.0",
+        "coldbox":"4.2.0+00002"
     },
     "installPaths":{
-        "cbjavaloader":"modules/cbjavaloader"
+        "cbjavaloader":"modules/cbjavaloader",
+        "coldbox":"coldbox",
+        "testbox":"testbox"
     },
     "ignore":[
         

@@ -9,24 +9,36 @@ OWASP AntiSamy Module that provides XSS cleanup operations to ColdBox 4 applicat
 Apache License, Version 2.0.
 
 ##IMPORTANT LINKS
-- https://github.com/ColdBox/cbox-antisamy
-- http://forgebox.io/view/cbantisamy
+- Source: https://github.com/ColdBox/cbox-antisamy
+- ForgeBox: http://forgebox.io/view/cbantisamy
+- Changelog: https://github.com/ColdBox/cbox-antisamy/blob/master/modules/cbantisamy/changelog.md
 
 ##SYSTEM REQUIREMENTS
-- Railo 4+
+- Lucee 4.5+
 - ColdFusion 9+
 
 ---
 
-#INSTRUCTIONS
-Just drop into your **modules** folder or use the box-cli to install
+#Instructions
+Just drop into your `modules` folder or use the box-cli to install
 
 `box install cbantisamy`
 
+# Usage
 The module registers the following mapping in WireBox: `antisamy@cbantisamy`
 that you can use to clean input a-la-carte intrusions.  You can also activate different policies and an auto clean interceptor that will clean incoming variables for you automatically.  The main methods to clean input are:
 
-- `clean( HTMLData, policyFile='ebay', resultsObject=false)`
+```javascript
+/**
++ clean HTML from XSS scripts using the AntiSamy project. The available policies are antisamy, ebay, myspace, slashdot, custom
++ @HTMLData The html data to clean
++ @policyFile The policy file to use, by default it uses the ebay policy file
++ @resultsObject By default it just returns the cleaned HTML, but if this is true, it will return the actual Java results object.
++ 
++ @return HTMl data or an instance of org.owasp.validator.html.CleanResults
+*/
+any function clean( required HTMLData, string policyFile="ebay", boolean resultsObject=false )
+```
 
 ## Settings
 Here are the module settings you can place in your `ColdBox.cfc` under an `antisamy` structure
