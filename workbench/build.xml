@@ -3,7 +3,7 @@
 	<!-- Version: UPDATE ON EACH RELEASE AS NEEDED -->
 	<property name="project.name" 		value="cbantisamy" />
 	<property name="module.name" 		value="cbantisamy" />
-	<property name="project.version" 	value="1.2.0"/>
+	<property name="project.version" 	value="1.2.1"/>
 	<property name="groupID" 			value="ortussolutions" />
 	
 	<!-- Build Labels -->
@@ -47,7 +47,7 @@
 		<property file="workbench/build.number"/>
 		
 		<!-- Build Label -->
-		<property name="build.label" value="${project.name}-${project.version}.${build.number}-${start.DSTAMP}${start.TSTAMP}"/>
+		<property name="build.label" value="${project.name}-${project.version}+${build.number}-${start.DSTAMP}${start.TSTAMP}"/>
 		<!-- Get Build Dependencies -->
  		<antcall target="getDependencies" />
 		<!-- Cleanup + Init -->
@@ -70,9 +70,12 @@
         <!-- Copy readme -->
         <copy todir="${dir.build}" encoding="UTF-8" file="readme.md" overwrite="true" />
         
-        <!-- Replace Build Numbers -->
+        <!-- Replace Version + Build Numbers -->
+		<replaceregexp match='@build.version@' replace="${project.version}" flags="ig" byline="true" encoding="UTF-8">
+		  <fileset dir="${dir.build}" />
+		</replaceregexp>
 		<replaceregexp match='@build.number@' replace="${build.number}" flags="ig" byline="true" encoding="UTF-8">
-			<fileset dir="${dir.build}" />
+		  <fileset dir="${dir.build}" />
 		</replaceregexp>
 		
 		<!-- Api Docs -->

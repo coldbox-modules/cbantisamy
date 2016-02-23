@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## 1.2.1
+* updated build process
+* Travis integration
+
 ## 1.2.0 
 * Updated readme locations
 * `Autoclean` property not respecting proper boolean value

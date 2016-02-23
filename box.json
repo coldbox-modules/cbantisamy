@@ -1,93 +1,18 @@
 {
-    "name":"AntiSamy Shell",
-    "version":"1.0.0.0000",
-    "author":"",
-    "location":"",
-    "directory":"",
-    "createPackageDirectory":true,
-    "packageDirectory":"",
-    "homepage":"",
-    "documentation":"",
-    "repository":{
-        "type":"",
-        "url":""
-    },
-    "bugs":"",
-    "slug":"mySlug",
-    "shortDescription":"",
-    "description":"",
-    "instructions":"",
-    "changelog":"",
-    "type":"",
-    "keywords":[
-        
-    ],
+    "name":"cbantisamy Builder",
+    "version":"1.0.0",
+    "slug":"cbantisamy-shell",
     "private":false,
-    "engines":[
-        {
-            "type":"railo",
-            "version":">=4.1.x"
-        },
-        {
-            "type":"adobe",
-            "version":">=10.0.0"
-        }
-    ],
-    "defaultEngine":"",
-    "defaultPort":0,
-    "projectURL":"",
-    "license":[
-        {
-            "type":"",
-            "url":""
-        }
-    ],
-    "contributors":[
-        
-    ],
     "dependencies":{
+        "coldbox":"4.1.0+00002",
         "cbjavaloader":"1.0.0"
     },
     "devDependencies":{
-        "coldbox-be":"4.0.0",
-        "testbox":"2.0.0",
-        "coldbox":"4.1.0+00002"
+        "testbox":"2.2.0"
     },
     "installPaths":{
-        "cbjavaloader":"modules/cbjavaloader",
         "coldbox":"coldbox",
-        "testbox":"testbox"
-    },
-    "ignore":[
-        
-    ],
-    "testbox":{
-        "runner":[
-            {
-                "default":""
-            }
-        ],
-        "labels":[
-            
-        ],
-        "reporter":"",
-        "reporterResults":"",
-        "bundles":[
-            ""
-        ],
-        "directory":{
-            "mapping":"",
-            "recurse":true
-        },
-        "watchers":[
-            
-        ],
-        "notify":{
-            "emails":[
-                
-            ],
-            "growl":"",
-            "url":""
-        }
+        "testbox":"testbox",
+        "cbjavaloader":"modules/cbjavaloader"
     }
 }

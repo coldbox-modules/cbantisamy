@@ -32,10 +32,6 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 	<!-- FILL OUT WHERE REPORTING RESULTS ARE STORED --> 
 	<property name="report.dir"  				value="${basedir}/results" />
 	<property name="junitreport.dir"  			value="${report.dir}/junitreport" />
-	<!-- Box Server For Testing -->
-	<property name="server.dir"					location="../" />
-	<property name="server.port"				value="8585" />
-	<property name="url.runner"					value="http://127.0.0.1:${server.port}/tests/runner.cfm?" />
 	
 	<!-- Load Contrib Tasks -->
 	<path id="cp">
@@ -48,6 +44,22 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 	
 	<!-- init -->
 	<target name="init" description="Init the tests">
+		<!-- Default environment check, if not passed via -Denvironment -->
+		<condition property="environment" value="local">
+			<not><isset property="environment" /></not>
+		</condition>
+		<if>
+			<available file="test-${environment}.properties" />
+			<then>
+				<!-- Load env properties -->
+				<echo>Loading properties from environment: ${environment}</echo>
+				<loadproperties srcFile="test-${environment}.properties"/>
+			</then>
+		</if>
+		<!-- Load root properties -->
+		<echo>Loading base properties</echo>
+		<loadproperties srcFile="test.properties"/>
+		
 		<!-- Start Init -->
 		<delete dir="${report.dir}" />
 		<mkdir dir="${junitreport.dir}" />
@@ -58,15 +70,6 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 			<format property="TODAY" pattern="MM-dd-YYYY hh:mm:ss aa"/>
 		</tstamp>
 		<concat destfile="${report.dir}/latestrun.log">Tests ran at ${start.TODAY}</concat>
-		<!-- Install dependencies for project -->
-		<exec executable="box" dir="${server.dir}">
-			<arg line="install" />
-		</exec>
-		<!-- Startup the test server, wait for a few seconds for server to start -->
-		<exec executable="box" dir="${server.dir}">
-			<arg line="server start openbrowser=false --force port=${server.port}" />
-		</exec>
-		<sleep seconds="5"/>
 	</target>
 	
 	<!-- update permissions on reports -->
@@ -116,15 +119,11 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 		 -->
 		
         <!-- Read Result Properties -->
-        <property file="${report.dir}/TEST.properties"/>
+        <property file="${report.dir}/test.properties"/>
         <!-- Echo them out -->
         <echoproperties regex="^(test|total).*"/>
 		<!-- update permissions again -->
 		<antcall target="update.permissions" /> 
-		<!-- stop server -->
-		<exec executable="box" dir="${server.dir}">
-			<arg line="server stop" />
-		</exec>
         <!-- Fail build if they failed -->
         <fail if="test.failed"/>
 	</target>
@@ -143,8 +142,8 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 			 - ReportPath : The path where reports will be stored, by default it is the ${report.dir} directory.
 		-->
 		<get dest="${report.dir}/results.xml" 
-					 src="${url.runner}&amp;directory=${test.directory}&amp;recurse=${test.recurse}&amp;reporter=ANTJunit&amp;labels=${test.labels}&amp;reportPath=${report.dir}&amp;propertiesSummary=true&amp;directoryExcludes=${test.directoryExcludes}&amp;cfid=123&amp;cftoken=123" 
-					 verbose="true"/>
+			 src="${url.runner}&amp;directory=${test.directory}&amp;recurse=${test.recurse}&amp;reporter=ANTJunit&amp;labels=${test.labels}&amp;reportPath=${report.dir}&amp;propertiesSummary=true&amp;directoryExcludes=${test.directoryExcludes}&amp;cfid=123&amp;cftoken=123" 
+			 verbose="true"/>
 		
 		<!-- Bundles Runner
 			You can also run tests for specific bundles by using the runner with the bundles params
@@ -161,18 +160,18 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 		
 		<!-- Check if file was created -->
 		<if>
-			<available file="${report.dir}/TEST.properties" />
+			<available file="${report.dir}/test.properties" />
 			<then>
 			</then>
 			<else>
-				<fail message="Build failed as ${report.dir}/TEST.properties was not found!" />
+				<fail message="Build failed as ${report.dir}/test.properties was not found!" />
 			</else>
 		</if>
 		
 		<!-- Create fancy junit reports -->
 		<junitreport todir="${junitreport.dir}">  
 			<fileset dir="${report.dir}">  
-				<include name="TEST-*.xml"/>  
+				<include name="test-*.xml"/>  
 			</fileset>
 			<report format="frames" todir="${junitreport.dir}">
 				<param name="TITLE" expression="My Awesome TestBox Results"/>
@@ -182,7 +181,7 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 		<!-- Create fancy junit reports -->
 		<junitreport todir="${junitreport.dir}">  
 			<fileset dir="${report.dir}">  
-				<include name="TEST-*.xml"/>  
+				<include name="test-*.xml"/>  
 			</fileset>
 			<report format="noframes" todir="${junitreport.dir}">
 				<param name="TITLE" expression="My Awesome TestBox Results"/>
@@ -191,15 +190,11 @@ PLEASE NOTE THAT YOU MUST ALTER THE RUNNER'S URL ACCORDING TO YOUR ENVIRONMENT.
 		<!-- Rename report -->
 		<move file="${junitreport.dir}/junit-noframes.html" tofile="${junitreport.dir}/index.html" />
         <!-- Read Result Properties -->
-        <property file="${report.dir}/TEST.properties"/>
+        <property file="${report.dir}/test.properties"/>
         <!-- Echo them out -->
         <echoproperties regex="^(test|total).*"/>
 		<!-- update permissions again -->
 		<antcall target="update.permissions" /> 
-		<!-- stop server -->
-		<exec executable="box" dir="${server.dir}">
-			<arg line="server stop" />
-		</exec>
         <!-- Fail build if they failed -->
         <fail if="test.failed"/>
 	</target>

@@ -1,6 +1,6 @@
 {
 	"name" 		: "AntiSamy",
-	"version"	: "1.2.0",
+	"version"	: "@version.number@+@build.number@",
 	"author" 	: "Luis Majano <lmajano@ortussolutions.com",
 	"slug"		: "cbantisamy",
 	"type"		: "modules",

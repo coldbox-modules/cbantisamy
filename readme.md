@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ColdBox/cbox-antisamy.svg?branch=development)](https://travis-ci.org/ColdBox/cbox-antisamy)
+
 WELCOME TO THE ANTISAMY MODULE
 ==============================
 OWASP AntiSamy Module that provides XSS cleanup operations to ColdBox 4 applications
@@ -11,7 +13,6 @@ Apache License, Version 2.0.
 ##IMPORTANT LINKS
 - Source: https://github.com/ColdBox/cbox-antisamy
 - ForgeBox: http://forgebox.io/view/cbantisamy
-- Changelog: https://github.com/ColdBox/cbox-antisamy/blob/master/modules/cbantisamy/changelog.md
 
 ##SYSTEM REQUIREMENTS
 - Lucee 4.5+
@@ -58,8 +59,8 @@ antisamy = {
 You can read more about AntiSamy here: https://www.owasp.org/index.php/Category:OWASP_AntiSamy_Project
 
 ********************************************************************************
-Copyright Since 2005 ColdBox Framework by Luis Majano and Ortus Solutions, Corp
-www.coldbox.org | www.luismajano.com | www.ortussolutions.com
+Copyright Since 2005 ColdBox Framework by Ortus Solutions, Corp
+www.ortussolutions.com
 ********************************************************************************
 ####HONOR GOES TO GOD ABOVE ALL
 Because of His grace, this project exists. If you don't like this, then don't read it, its not for you.

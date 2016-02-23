@@ -8,8 +8,13 @@ component{
 	API_ROOT = getDirectoryFromPath( getCurrentTemplatePath() );
 	rootPath = REReplaceNoCase( API_ROOT, "apidocs(\\|\/)$", "" );
 
-	this.mappings[ "/docbox" ]  	= API_ROOT & "docbox";
-	this.mappings[ "/root" ] 		= rootPath;
-	this.mappings[ "/cbantisamy" ] 	= rootPath & "modules/cbantisamy/models";
+	// MODULE NAME
+	request.moduleName = "cbantisamy";
+
+	this.mappings[ "/docbox" ] 	= API_ROOT & "docbox";
+	this.mappings[ "/root" ] 	= rootPath;
+	this.mappings[ "/#request.moduleName#" ] = rootPath & "modules/#request.moduleName#/models";
+
+
 
 }
