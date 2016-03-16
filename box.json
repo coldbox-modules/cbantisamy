@@ -5,10 +5,10 @@
     "private":false,
     "dependencies":{
         "coldbox":"4.1.0+00002",
-        "cbjavaloader":"1.1.0"
+        "cbjavaloader":"1.1.0+00002"
     },
     "devDependencies":{
-        "testbox":"2.3.0"
+        "testbox":"2.3.0+00044"
     },
     "installPaths":{
         "coldbox":"coldbox",
