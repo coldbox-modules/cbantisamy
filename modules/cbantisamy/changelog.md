@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+## 1.4.0
+
 ## 1.3.0
 * Updated build process
 * Travis integration
