@@ -1,9 +1,8 @@
-/********************************************************************************
+/**
 * Copyright 2005-2007 ColdBox Framework by Luis Majano and Ortus Solutions, Corp
-* www.coldbox.org | www.luismajano.com | www.ortussolutions.com
-********************************************************************************
+* www.ortussolutions.com
+* ---
 * This Interceptor if activated automatically cleans the request collection for you
-* @author Luis Majano <lmajano@ortussolutions.com>
 */
 component extends="coldbox.system.Interceptor"{
 

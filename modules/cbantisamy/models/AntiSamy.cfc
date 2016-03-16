@@ -1,8 +1,7 @@
-﻿/********************************************************************************
+﻿/**
 * Copyright 2005-2007 ColdBox Framework by Luis Majano and Ortus Solutions, Corp
-* www.coldbox.org | www.luismajano.com | www.ortussolutions.com
-********************************************************************************
-* @author Luis Majano <lmajano@ortussolutions.com>
+* www.ortussolutions.com
+* ---
 * OWASP AntiSamy Project that provides XSS cleanup operations to ColdBox applications
 * http://www.owasp.org/index.php/Category:OWASP_AntiSamy_Project
 * http://code.google.com/p/owaspantisamy/downloads/list

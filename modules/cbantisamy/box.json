@@ -19,7 +19,7 @@
 		{ "type" : "adobe", "version" : ">9.02" }
 	],
 	"dependencies" 	:{
-		"cbjavaloader" : "1.0.0"
+		"cbjavaloader" : "1.1.0"
 	},
     "ignore":[
         "**/.*",

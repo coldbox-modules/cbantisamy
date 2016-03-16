@@ -1,9 +1,11 @@
 CHANGELOG
 =========
 
-## 1.2.1
-* updated build process
+## 1.3.0
+* Updated build process
 * Travis integration
+* JavaLoader dependencies updated
+* DocBox udpates
 
 ## 1.2.0 
 * Updated readme locations
