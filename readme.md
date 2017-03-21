@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ColdBox/cbox-antisamy.svg?branch=development)](https://travis-ci.org/ColdBox/cbox-antisamy)
+[![Build Status](https://travis-ci.org/coldbox-modules/cbox-antisamy.svg?branch=development)](https://travis-ci.org/coldbox-modules/cbox-antisamy)
 
 WELCOME TO THE ANTISAMY MODULE
 ==============================
@@ -11,12 +11,12 @@ OWASP AntiSamy Module that provides XSS cleanup operations to ColdBox 4 applicat
 Apache License, Version 2.0.
 
 ##IMPORTANT LINKS
-- Source: https://github.com/ColdBox/cbox-antisamy
+- Source: https://github.com/coldbox-modules/cbox-antisamy
 - ForgeBox: http://forgebox.io/view/cbantisamy
 
 ##SYSTEM REQUIREMENTS
 - Lucee 4.5+
-- ColdFusion 9+
+- ColdFusion 10+
 
 ---
 

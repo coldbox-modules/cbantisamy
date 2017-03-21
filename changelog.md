@@ -1,7 +1,8 @@
 CHANGELOG
 =========
 
-## 1.4.0
+## 1.3.1
+* Unified workbench
 
 ## 1.3.0
 * Updated build process
