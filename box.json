@@ -12,8 +12,8 @@
     },
     "installPaths":{
         "coldbox":"coldbox/",
-        "testbox":"testbox",
-        "workbench":"workbench/",
+        "testbox":"testbox/",
+        "workbench":"workbench",
         "cbjavaloader":"modules/cbjavaloader/"
     },
     "testbox":{
