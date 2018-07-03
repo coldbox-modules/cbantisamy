@@ -16,8 +16,6 @@ component extends="coldbox.system.Interceptor"{
 			return; 
 		}
 
-		// rc reference
-		var rc = event.getCollection();
 		// cleanup
 		for( var key in rc ){
 			if( structKeyExists( rc, key ) and isSimpleValue( rc[ key ] ) ){
