@@ -22,15 +22,15 @@ component singleton threadsafe{
 	function onDIComplete(){
 		variables.policies = {
 			// AntiSamy policyfile
-			'antisamy' 	= moduleSettings.libPath & "/antisamy-anythinggoes-1.4.4.xml",
+			'antisamy' 	= moduleSettings.libPath & "/antisamy-anythinggoes.xml",
 			//Load eBay policyfile
-			'ebay'	  	= moduleSettings.libPath & "/antisamy-ebay-1.4.4.xml",
+			'ebay'	  	= moduleSettings.libPath & "/antisamy-ebay.xml",
 			//Load myspace policyfile
-			'myspace'  	= moduleSettings.libPath & "/antisamy-myspace-1.4.4.xml",
+			'myspace'  	= moduleSettings.libPath & "/antisamy-myspace.xml",
 			//Load slashdot policyfile
-			'slashdot' 	= moduleSettings.libPath & "/antisamy-slashdot-1.4.4.xml",
+			'slashdot' 	= moduleSettings.libPath & "/antisamy-slashdot.xml",
 			//Load tinymce policyfile
-			'tinymce' 	= moduleSettings.libPath & "/antisamy-tinymce-1.4.4.xml",
+			'tinymce' 	= moduleSettings.libPath & "/antisamy-tinymce.xml",
 			// Custom Policy
 			'custom'	= moduleSettings.customPolicy
 		};
@@ -57,9 +57,11 @@ component singleton threadsafe{
 		
 		// validate policy file
 		if( NOT structKeyExists( variables.policies, arguments.policyFile) ){
-			throw( message="Invalid Policy File: #arguments.policyFile#",
-				   detail="The available policy files are #structKeyList( variables.policies )#",
-				   type="AntiSamy.InvalidPolicyException" );
+			throw( 
+				message = "Invalid Policy File: #arguments.policyFile#",
+				detail  = "The available policy files are #structKeyList( variables.policies )#",
+				type    = "AntiSamy.InvalidPolicyException" 
+			);
 		}
 		
 		// Clean with policy

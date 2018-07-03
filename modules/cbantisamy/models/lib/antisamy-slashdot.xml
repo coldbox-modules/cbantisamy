@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 	
 <!-- 
 W3C rules retrieved from:
@@ -34,7 +34,7 @@ Slashdot allowed tags taken from "Reply" page:
 		-->
 		
 		<regexp name="htmlTitle" value="[\p{L}\p{N}\s\-_',:\[\]!\./\\\(\)&amp;]*"/> <!-- force non-empty with a '+' at the end instead of '*' -->
-		<regexp name="onsiteURL" value="([\p{L}\p{N}\\/\.\?=\#&amp;;\-_~]+|\#(\w)+)"/>
+		<regexp name="onsiteURL" value="^(?![\p{L}\p{N}\\\.\#@\$%\+&amp;;\-_~,\?=/!]*(&amp;colon))[\p{L}\p{N}\\\.\#@\$%\+&amp;;\-_~,\?=/!]*"/>
 		<regexp name="offsiteURL" value="(\s)*((ht|f)tp(s?)://|mailto:)[\p{L}\p{N}]+[~\p{L}\p{N}\p{Zs}\-_\.@\#\$%&amp;;:,\?=/\+!\(\)]*(\s)*"/>
 	
 	</common-regexps>
@@ -176,5 +176,28 @@ Slashdot allowed tags taken from "Reply" page:
 
 	<css-rules>
 	</css-rules>
+<allowed-empty-tags>
+        <literal-list>
+            <literal value="br"/>
+            <literal value="hr"/>
+            <literal value="a"/>
+            <literal value="img"/>
+            <literal value="link"/>
+            <literal value="iframe"/>
+            <literal value="script"/>
+            <literal value="object"/>
+            <literal value="applet"/>
+            <literal value="frame"/>
+            <literal value="base"/>
+            <literal value="param"/>
+            <literal value="meta"/>
+            <literal value="input"/>
+            <literal value="textarea"/>
+            <literal value="embed"/>
+            <literal value="basefont"/>
+            <literal value="col"/>
+            <literal value="div"/>
+        </literal-list>
+    </allowed-empty-tags>
 
 </anti-samy-rules>
