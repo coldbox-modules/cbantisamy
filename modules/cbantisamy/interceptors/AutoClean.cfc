@@ -10,9 +10,12 @@ component extends="coldbox.system.Interceptor"{
 	property name="antisamy" inject="provider:AntiSamy@CBAntiSamy";
 
 	// On request capture
-	function onRequestCapture( event, interceptData, buffer ){
+	function onRequestCapture( event, interceptData, buffer, rc, prc ){
 		// if not activated, just exist
-		if( getSetting( "antisamy" ).autoClean == false ){ return; }
+		if( getSetting( "antisamy" ).autoClean == false ){ 
+			return; 
+		}
+
 		// rc reference
 		var rc = event.getCollection();
 		// cleanup

@@ -1,0 +1,20 @@
+{
+    "force":true,
+    "app":{
+        "cfengine":"@ortus/adobe-aether",
+        "serverHomeDirectory":"./.engine/adobe@2018"
+    },
+    "openbrowser":"false",
+    "name":"adobe@2018",
+    "web":{
+        "http":{
+            "port":"49616"
+        },
+        "rewrites" : {
+            "enable" : true
+        }
+    },
+    "JVM":{
+        "heapSize":"1024"
+    }
+}

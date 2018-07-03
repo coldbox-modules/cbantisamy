@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <!--
 	TinyMCE
@@ -29,7 +29,7 @@
 
 		<!--  force non-empty with a '+' at the end instead of '*'
 		-->
-		<regexp name="onsiteURL" value="([\p{L}\p{N}\p{Zs}/\.\?=&amp;\-~])+" />
+		<regexp name="onsiteURL" value="^(?![\p{L}\p{N}\\\.\#@\$%\+&amp;;\-_~,\?=/!]*(&amp;colon))[\p{L}\p{N}\\\.\#@\$%\+&amp;;\-_~,\?=/!]*"/>
 
 		<!--  ([\w\\/\.\?=&amp;;\#-~]+|\#(\w)+)
 		-->
@@ -198,4 +198,28 @@
 			</literal-list>
 		</property>
 	</css-rules>
+
+        <allowed-empty-tags>
+        <literal-list>
+            <literal value="br"/>
+            <literal value="hr"/>
+            <literal value="a"/>
+            <literal value="img"/>
+            <literal value="link"/>
+            <literal value="iframe"/>
+            <literal value="script"/>
+            <literal value="object"/>
+            <literal value="applet"/>
+            <literal value="frame"/>
+            <literal value="base"/>
+            <literal value="param"/>
+            <literal value="meta"/>
+            <literal value="input"/>
+            <literal value="textarea"/>
+            <literal value="embed"/>
+            <literal value="basefont"/>
+            <literal value="col"/>
+            <literal value="div"/>
+        </literal-list>
+    </allowed-empty-tags>
 </anti-samy-rules>

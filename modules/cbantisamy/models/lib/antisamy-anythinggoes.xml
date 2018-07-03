@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="ISO-8859-1" ?>
 
 
 <!--
@@ -13,7 +13,7 @@ http://www.w3.org/TR/html401/struct/global.html
 	<directives>
 		<directive name="omitXmlDeclaration" value="true"/>
 		<directive name="omitDoctypeDeclaration" value="true"/>
-		<directive name="maxInputSize" value="20000"/>
+		<directive name="maxInputSize" value="200000"/>
 		<directive name="useXHTML" value="true"/>
 		<directive name="formatOutput" value="true"/>
 
@@ -22,6 +22,8 @@ http://www.w3.org/TR/html401/struct/global.html
 		know anything about the URL or your web structure
 		-->
 		<directive name="embedStyleSheets" value="false"/>
+		<directive name="connectionTimeout" value="5000"/>
+		<directive name="maxStyleSheetImports" value="3"/>
 
 	</directives>
 
@@ -48,26 +50,26 @@ http://www.w3.org/TR/html401/struct/global.html
 		<regexp name="htmlTitle" value="[\p{L}\p{N}\s\-_',:\[\]!\./\\\(\)&amp;]*"/> <!-- force non-empty with a '+' at the end instead of '*' -->
 		<regexp name="htmlClass" value="[a-zA-Z0-9\s,\-_]+"/>
 
-		<regexp name="onsiteURL" value="([\p{L}\p{N}\\\.\#@\$%\+&amp;;\-_~,\?=/!]+|\#(\w)+)"/>
+		<regexp name="onsiteURL" value="^(?![\p{L}\p{N}\\\.\#@\$%\+&amp;;\-_~,\?=/!]*(&amp;colon))[\p{L}\p{N}\\\.\#@\$%\+&amp;;\-_~,\?=/!]*"/>
 		<regexp name="offsiteURL" value="(\s)*((ht|f)tp(s?)://|mailto:)[\p{L}\p{N}]+[\p{L}\p{N}\p{Zs}\.\#@\$%\+&amp;;:\-_~,\?=/!\(\)]*(\s)*"/>
 
 		<regexp name="boolean" value="(true|false)"/>
 		<regexp name="singlePrintable" value="[a-zA-Z0-9]{1}"/> <!-- \w allows the '_' character -->
 
 		<!-- This is for elements (ex: elemName { ... }) -->
-		<regexp name="cssElementSelector" value="[a-zA-Z0-9\-_]+|\*"/>
+		<regexp name="cssElementSelector" value="[a-zA-Z0-9-_]+|\*"/>
 
 		<!--  This is to list out any element names that are *not* valid -->
 		<regexp name="cssElementExclusion" value=""/>
 
 		<!--  This if for classes (ex: .className { ... }) -->
-		<regexp name="cssClassSelector" value="\.[a-zA-Z0-9\-_]+"/>
+		<regexp name="cssClassSelector" value="\.[a-zA-Z0-9-_]+"/>
 
 		<!--  This is to list out any class names that are *not* valid -->
 		<regexp name="cssClassExclusion" value=""/>
 
 		<!--  This is for ID selectors (ex: #myId { ... } -->
-		<regexp name="cssIDSelector" value="#[a-zA-Z0-9\-_]+"/>
+		<regexp name="cssIDSelector" value="#[a-zA-Z0-9-_]+"/>
 
 		<!--  This is to list out any IDs that are *not* valid - FIXME: What should the default be to avoid div hijacking? *? -->
 		<regexp name="cssIDExclusion" value=""/>
@@ -196,6 +198,12 @@ http://www.w3.org/TR/html401/struct/global.html
 				<regexp name="onsiteURL"/>
 				<regexp name="offsiteURL"/>
 			</regexp-list>
+			<literal-list>
+				<literal value="javascript:history.go(0)"/>
+				<literal value="javascript:history.go(-1)"/>
+				<literal value="javascript:void(0)"/>
+				<literal value="javascript:location.reload()"/>
+			</literal-list>
 		</attribute>
 
 		<attribute name="name">
@@ -489,6 +497,22 @@ http://www.w3.org/TR/html401/struct/global.html
 
 	<tag-rules>
 
+		<!-- You can mess with this stuff if you know what you're doing -->
+
+		<tag name="html" action="validate"/>
+
+		<tag name="body" action="validate">
+			<attribute name="bgcolor"/>
+		</tag>
+
+		<tag name="meta" action="filter"/>
+
+		<tag name="head" action="validate"/>
+
+		<!-- since we're validating the style sheets this is safe to have - switch to "truncate" if the user's html will appear in the html body -->
+		<tag name="title" action="truncate"/>
+
+
 		<!-- Tags related to JavaScript -->
 
 		<tag name="script" action="remove"/>
@@ -515,6 +539,166 @@ http://www.w3.org/TR/html401/struct/global.html
 		</tag>
 
 
+		<!--
+			If you wish to enable any of the form related tags, change the tag's action below from "filter" or "remove" to "validate". The attributes have been
+			hardened so this is safe to do, if it's something you want to allow. Beware the <><ing possibilities!
+		 -->
+
+		<tag name="form" action="validate">
+
+			<attribute name="action">
+				<regexp-list>
+					<regexp name="onsiteURL"/>
+					<regexp name="offsiteURL"/>
+				</regexp-list>
+			</attribute>
+
+			<attribute name="name"/>
+
+			<attribute name="autocomplete"/>
+
+			<attribute name="method">
+				<literal-list>
+					<literal value="post"/>
+					<literal value="get"/>
+				</literal-list>
+			</attribute>
+
+		</tag>
+
+		<tag name="button" action="validate">
+			<attribute name="name"/>
+			<attribute name="value">
+				<regexp-list>
+					<regexp name="anything"/>
+				</regexp-list>
+			</attribute>
+
+			<attribute name="disabled"/>
+			<attribute name="accesskey"/>
+			<attribute name="type">
+				<literal-list>
+					<literal value="submit"/>
+					<literal value="reset"/>
+					<literal value="button"/>
+				</literal-list>
+			</attribute>
+		</tag>
+
+		<tag name="input" action="validate">
+
+			<attribute name="name"/>
+
+			<attribute name="size"/>
+
+			<attribute name="maxlength">
+				<regexp-list>
+					<regexp name="number"/>
+				</regexp-list>
+			</attribute>
+
+			<attribute name="autocomplete"/>
+
+			<attribute name="checked">
+				<regexp-list>
+					<regexp name="anything"/>
+				</regexp-list>
+			</attribute>
+
+			<attribute name="alt"/>
+
+			<attribute name="src">
+				<regexp-list>
+					<regexp name="onsiteURL"/>
+					<regexp name="offsiteURL"/>
+				</regexp-list>
+			</attribute>
+
+			<attribute name="usemap">
+				<regexp-list>
+					<regexp name="onsiteURL"/>
+				</regexp-list>
+			</attribute>
+
+			<attribute name="type">
+				<literal-list>
+					<literal value="hidden"/>
+					<literal value="text"/>
+					<literal value="password"/>
+					<literal value="radio"/>
+					<literal value="checkbox"/>
+					<literal value="submit"/>
+					<literal value="button"/>
+					<literal value="image"/>
+					<literal value="file"/>
+					<literal value="reset"/>
+				</literal-list>
+			</attribute>
+
+			<attribute name="value">
+				<regexp-list>
+					<regexp name="anything"/>
+				</regexp-list>
+			</attribute>
+
+			<attribute name="disabled"/>
+			<attribute name="readonly"/>
+			<attribute name="accesskey"/>
+
+			<attribute name="border"/>
+
+		</tag>
+
+		<tag name="select" action="validate">
+
+			<attribute name="name"/>
+			<attribute name="disabled"/>
+
+			<attribute name="multiple">
+				<regexp-list>
+					<regexp name="anything"/>
+				</regexp-list>
+			</attribute>
+
+			<attribute name="size"/>
+
+		</tag>
+
+		<tag name="option" action="validate">
+
+			<attribute name="disabled"/>
+
+			<attribute name="value">
+				<regexp-list>
+					<regexp name="anything"/>
+				</regexp-list>
+			</attribute>
+
+			<attribute name="label">
+				<regexp-list>
+					<regexp name="anything"/>
+				</regexp-list>
+			</attribute>
+
+			<attribute name="selected">
+				<regexp-list>
+					<regexp name="anything"/>
+				</regexp-list>
+			</attribute>
+		</tag>
+
+		<tag name="textarea" action="validate">
+			<attribute name="rows"/>
+			<attribute name="cols"/>
+			<attribute name="name"/>
+			<attribute name="disabled"/>
+			<attribute name="readonly"/>
+			<attribute name="accesskey"/>
+		</tag>
+
+
+
+
 		<!-- All formatting tags -->
 
 		<tag name="h1" action="validate"/>
@@ -539,7 +723,12 @@ http://www.w3.org/TR/html401/struct/global.html
 		<tag name="pre" action="validate"/>
 		<tag name="code" action="validate"/>
 		<tag name="cite" action="validate"/>
-		<tag name="samp" action="validate"/>
+        <tag name="acronym" action="validate"/>
+        <tag name="abbr" action="validate"/>
+        <tag name="var" action="validate"/>
+        <tag name="kbd" action="validate"/>
+        <tag name="dfn" action="validate"/>
+        <tag name="samp" action="validate"/>
 		<tag name="sub" action="validate"/>
 		<tag name="sup" action="validate"/>
 		<tag name="strike" action="validate"/>
@@ -625,6 +814,9 @@ http://www.w3.org/TR/html401/struct/global.html
 
 		<!-- <attribute name="id"/>  what could an attacker do if they could overwrite an existing div definition? prolly something bad -->
 		<!-- <attribute name="class"/> what could an attacker do if they could specify any class in the namespace? prolly something bad -->
+
+
+
 
 
 		<!-- Image & image related tags -->
@@ -2441,5 +2633,27 @@ http://www.w3.org/TR/html401/struct/global.html
 		</property>
 		<!--  end manual properties -->
 	</css-rules>
-
+<allowed-empty-tags>
+        <literal-list>
+            <literal value="br"/>
+            <literal value="hr"/>
+            <literal value="a"/>
+            <literal value="img"/>
+            <literal value="link"/>
+            <literal value="iframe"/>
+            <literal value="script"/>
+            <literal value="object"/>
+            <literal value="applet"/>
+            <literal value="frame"/>
+            <literal value="base"/>
+            <literal value="param"/>
+            <literal value="meta"/>
+            <literal value="input"/>
+            <literal value="textarea"/>
+            <literal value="embed"/>
+            <literal value="basefont"/>
+            <literal value="col"/>
+            <literal value="div"/>
+        </literal-list>
+    </allowed-empty-tags>
 </anti-samy-rules>

@@ -1,0 +1,4 @@
+# Usually caled via a postversion box.json script, bumps and commits build target
+sed .module.properties 's/project.version=(.*)$/project.version=`package version`/i' --file > .module.properties
+!git add .module.properties
+!git commit -m "Version bump"
