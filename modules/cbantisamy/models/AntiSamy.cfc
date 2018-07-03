@@ -52,27 +52,45 @@ component singleton threadsafe{
 	* @return HTMl data or an instance of org.owasp.validator.html.CleanResults
  	*/
 	any function HTMLSanitizer( required HTMLData, string policyFile="ebay", boolean resultsObject=false ){
-		// you can use any xml, our your own customised policy xml
-		var antiSamy = javaLoader.create( "org.owasp.validator.html.AntiSamy" );
+
+		var _thread = createObject( "java", "java.lang.Thread" );
+		var currentClassloader = _thread.currentThread().getContextClassLoader();
+
+		try{
+			 // Overide due to class cast exceptions
+			 _thread.currentThread().setContextClassLoader( javaloader.getURLClassLoader() );
+
+			// you can use any xml, our your own customised policy xml
+			var antiSamy = javaLoader.create( "org.owasp.validator.html.AntiSamy" );
+			
+			// validate policy file
+			if( NOT structKeyExists( variables.policies, arguments.policyFile) ){
+				throw( 
+					message = "Invalid Policy File: #arguments.policyFile#",
+					detail  = "The available policy files are #structKeyList( variables.policies )#",
+					type    = "AntiSamy.InvalidPolicyException" 
+				);
+			}
+			
+			// Clean with policy
+			var cleanedHtml	= antiSamy.scan( arguments.htmlData, variables.policies[ arguments.policyFile ] );
+			
+			// returning results object or just clean HTML?
+			if( arguments.resultsObject ){
+				return cleanedHtml;
+			} 
+			
+			return cleanedHTML.getCleanHTML();
 		
-		// validate policy file
-		if( NOT structKeyExists( variables.policies, arguments.policyFile) ){
-			throw( 
-				message = "Invalid Policy File: #arguments.policyFile#",
-				detail  = "The available policy files are #structKeyList( variables.policies )#",
-				type    = "AntiSamy.InvalidPolicyException" 
-			);
+		} catch( any e ){
+			rethrow;
+		} finally {
+			/*
+                 We have to reset the classloader, due to
+                  thread pooling.
+             */
+			_thread.currentThread().setContextClassLoader( currentClassloader );
 		}
-		
-		// Clean with policy
-		var cleanedHtml	= antiSamy.scan( arguments.htmlData, variables.policies[ arguments.policyFile ] );
-		
-		// returning results object or just clean HTML?
-		if( arguments.resultsObject ){
-			return cleanedHtml;
-		} 
-		
-		return cleanedHTML.getCleanHTML();
 	}
 	
 }
