@@ -1,0 +1,39 @@
+{
+    "name":"JavaLoader",
+    "author":"Ortus Solutions.com <info@ortussolutions.com>",
+    "version":"2.0.0+49",
+    "location":"http://downloads.ortussolutions.com/ortussolutions/coldbox-modules/cbjavaloader/2.0.0/cbjavaloader-2.0.0.zip",
+    "slug":"cbjavaloader",
+    "type":"modules",
+    "homepage":"https://github.com/coldbox-modules/cbox-javaloader",
+    "documentation":"https://github.com/coldbox-modules/cbox-javaloader",
+    "repository":{
+        "type":"git",
+        "url":"https://github.com/coldbox-modules/cbox-javaloader"
+    },
+    "shortDescription":"A module to class load, compile and do much more with Java",
+    "license":[
+        {
+            "type":"Apache2",
+            "url":"http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    ],
+    "contributors":[
+        "Brad Wood <bdw429s@gmail.com>",
+        "Curt Gratz <gratz@computerknowhow.com>"
+    ],
+    "ignore":[
+        "**/.*",
+        "tests",
+        "*/.md"
+    ],
+    "dependencies":{},
+    "devDependencies":{},
+    "installPaths":{},
+    "scripts":{
+        "release":"recipe build/release.boxr",
+        "format":"cfformat run models/,test-harness/tests/ --overwrite",
+        "format:watch":"cfformat watch models/,test-harness/tests/",
+        "format:check":"cfformat check models/,test-harness/tests/"
+    }
+}
