@@ -7,7 +7,7 @@ www.ortussolutions.com
 component{
 
 	// UPDATE THE NAME OF THE MODULE IN TESTING BELOW
-	request.MODULE_NAME = "cbantisamy";
+	request.MODULE_NAME = "cbox-antisamy";
 
 	// Application properties
 	this.name              = hash( getCurrentTemplatePath() );
