@@ -21,7 +21,7 @@ component {
 	this.mappings[ "/root" ] = rootPath;
 
 	// UPDATE THE NAME OF THE MODULE IN TESTING BELOW
-	request.MODULE_NAME = "cbox-antisamy";
+	request.MODULE_NAME = "cbantisamy";
 
 	// The module root path
 	moduleRootPath = reReplaceNoCase( this.mappings[ "/root" ], "#request.module_name#(\\|/)test-harness(\\|/)", "" );
