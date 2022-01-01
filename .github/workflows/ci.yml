@@ -24,8 +24,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-        with:
-          path: cbantisamy
 
       - name: Setup Java
         uses: actions/setup-java@v2
