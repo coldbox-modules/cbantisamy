@@ -23,7 +23,7 @@ component singleton threadsafe {
         }
         variables.policies = {
             // Basic Adobe/Lucee policyfile
-            'basic' : moduleSettings.libPath & '/antisamy-basic.xml',
+            'basic': moduleSettings.libPath & '/antisamy-basic.xml',
             // Load eBay policyfile
             'ebay': moduleSettings.libPath & '/antisamy-ebay.xml',
             // Load myspace policyfile
@@ -54,19 +54,15 @@ component singleton threadsafe {
      *
      * @return HTMl data or boolean from check
      */
-    any function HTMLSanitizer(
-        required HTMLData,
-        string policyFile = variables.defaultPolicy,
-        boolean check = false
-    ) {
-        if( !variables.policies.keyExists( arguments.policyfile ) ){
+    any function HTMLSanitizer(required HTMLData, string policyFile = variables.defaultPolicy, boolean check = false) {
+        if (!variables.policies.keyExists(arguments.policyfile)) {
             throw(
-                type='cbantisamy.AntiSamy.InvalidPolicyFile',
-                message='The policy specified, #arguments.policyFile#, does not exist. Valid policies are #variables.policies.keyArray().toList()#'
+                type = 'cbantisamy.AntiSamy.InvalidPolicyFile',
+                message = 'The policy specified, #arguments.policyFile#, does not exist. Valid policies are #variables.policies.keyArray().toList()#'
             );
         }
-        if ( engine == 'ADOBE' ) {
-            if ( arguments.check ) {
+        if (engine == 'ADOBE') {
+            if (arguments.check) {
                 return isSafeHTML(
                     arguments.htmlData,
                     len(arguments.policyFile) ? variables.policies[arguments.policyFile] : javacast('null', 0)
@@ -74,7 +70,7 @@ component singleton threadsafe {
             } else {
                 return getSafeHTML(
                     arguments.htmlData,
-                    len( arguments.policyFile ) ? variables.policies[arguments.policyFile] : javacast('null', 0)
+                    len(arguments.policyFile) ? variables.policies[arguments.policyFile] : javacast('null', 0)
                 );
             }
         } else {
@@ -102,7 +98,7 @@ component singleton threadsafe {
 
                 // returning results object or just checking?
                 if (arguments.check) {
-                    return ! cleanResult.getNumberOfErrors();
+                    return !cleanResult.getNumberOfErrors();
                 }
 
                 return cleanResult.getCleanHTML();

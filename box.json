@@ -5,11 +5,11 @@
 	"location"  : "http://downloads.ortussolutions.com/ortussolutions/coldbox-modules/cbantisamy/@build.version@/cbantisamy-@build.version@.zip",
 	"slug"		: "cbantisamy",
 	"type"		: "modules",
-	"homepage"	: "https://github.com/coldbox-modules/cbox-antisamy",
-	"documentation"		: "https://github.com/coldbox-modules/cbox-antisamy",
+	"homepage"	: "https://github.com/coldbox-modules/cbantisamy",
+	"documentation"		: "https://github.com/coldbox-modules/cbantisamy",
 	"repository"		: { 
 		"type" : "git", 
-		"url" : "https://github.com/coldbox-modules/cbox-antisamy" 
+		"url" : "https://github.com/coldbox-modules/cbantisamy" 
 	},
 	"shortDescription"	: "OWASP AntiSamy Project that provides XSS cleanup operations to ColdBox applications",
 	"license"			: [ 

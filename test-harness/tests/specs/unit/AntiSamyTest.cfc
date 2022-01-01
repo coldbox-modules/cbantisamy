@@ -26,37 +26,33 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/root" {
             });
 
             it('tests model isstantiation', function() {
-                expect( variables.model ).toBeComponent();
+                expect(variables.model).toBeComponent();
             });
 
-            it( 'HTMLSantizer method should remove attack scripts from a string', function(){
+            it('HTMLSantizer method should remove attack scripts from a string', function() {
                 var attack = 'guest<script>alert(''I am an attacker'')</script>';
-                var cleanedHTML = model.HTMLSanitizer( attack );
-                expect( trim( cleanedHTML ) ).toBe( 'guest' );
+                var cleanedHTML = model.HTMLSanitizer(attack);
+                expect(trim(cleanedHTML)).toBe('guest');
             });
 
-            it( 'HTMLSanitizer should not clean safe HTML Tags', function(){
+            it('HTMLSanitizer should not clean safe HTML Tags', function() {
                 var safe = '<p>I am safe</p>';
-                var cleaned = model.HTMLSanitizer( HTMLData=safe );
-                expect( cleaned ).toBe( safe );
-            }  );
-
-            it( 'HTMLSantizer should return a boolean as to whether the HTML is safe when the check argument is passed', function(){
-                var attack = 'guest<script>alert(''I am an attacker'')</script>';
-                var cleaned = model.HTMLSanitizer( HTMLData=attack, check=true );
-                expect( cleaned ).toBeFalse();
-            }  );
-            
-            it( 'Will throw an error if an invalid policy file is specified', function(){
-                expect( 
-                    function(){
-                        return model.HTMLSanitizer( '<p>Foo</p>', 'foo' );
-                    }
-                ).toThrow( 'cbantisamy.AntiSamy.InvalidPolicyFile' );
+                var cleaned = model.HTMLSanitizer(HTMLData = safe);
+                expect(cleaned).toBe(safe);
             });
-            
+
+            it('HTMLSantizer should return a boolean as to whether the HTML is safe when the check argument is passed', function() {
+                var attack = 'guest<script>alert(''I am an attacker'')</script>';
+                var cleaned = model.HTMLSanitizer(HTMLData = attack, check = true);
+                expect(cleaned).toBeFalse();
+            });
+
+            it('Will throw an error if an invalid policy file is specified', function() {
+                expect(function() {
+                    return model.HTMLSanitizer('<p>Foo</p>', 'foo');
+                }).toThrow('cbantisamy.AntiSamy.InvalidPolicyFile');
+            });
         });
-        
     }
 
 }

@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/coldbox-modules/cbox-antisamy.svg?branch=development)](https://travis-ci.org/coldbox-modules/cbox-antisamy)
+[![Build Status](https://travis-ci.org/coldbox-modules/cbantisamy.svg?branch=development)](https://travis-ci.org/coldbox-modules/cbantisamy)
 
 # WELCOME TO THE ANTISAMY MODULE
 
@@ -13,7 +13,7 @@ Apache License, Version 2.0.
 
 ## IMPORTANT LINKS
 
-- Source: https://github.com/coldbox-modules/cbox-antisamy
+- Source: https://github.com/coldbox-modules/cbantisamy
 - ForgeBox: http://forgebox.io/view/cbantisamy
 
 ## SYSTEM REQUIREMENTS

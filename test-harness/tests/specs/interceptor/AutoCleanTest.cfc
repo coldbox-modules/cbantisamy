@@ -30,7 +30,6 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/root" {
                 var rc = event.getCollection();
                 expect(rc.data).toBe('guest');
             });
-
         });
     }
 
