@@ -31,6 +31,15 @@ jobs:
           distribution: "adopt"
           java-version: "11"
 
+      - name: Cache CommandBox Dependencies
+        uses: actions/cache@v1
+        if: ${{ true }}
+        with:
+          path: ~/.CommandBox/artifacts
+          key: ${{ runner.OS }}-commandbox-cache-${{ hashFiles( 'box.json' ) }}-${{ hashFiles( 'test-harness/box.json' ) }}
+          restore-keys: |
+            ${{ runner.OS }}-commandbox-cache-${{ hashFiles( 'box.json' ) }}-${{ hashFiles( 'test-harness/box.json' ) }}
+
       - name: Setup CommandBox
         uses: elpete/setup-commandbox@v1.0.0
 
@@ -43,6 +52,10 @@ jobs:
         working-directory: ./test-harness
         run: |
           box server start serverConfigFile="server-${{ matrix.cfengine }}.json" --noSaveSettings --debug
+          # Install Adobe 2021 cfpm modules
+          if [[ "${{ matrix.cfengine }}" == "adobe@2021" ]] ; then
+            box run-script install:2021
+          fi
           curl http://127.0.0.1:60299
 
       - name: Run Tests
