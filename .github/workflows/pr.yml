@@ -98,7 +98,7 @@ jobs:
         run: box install commandbox-cfformat
 
       - name: Run CFFormat
-        run: box run-script format
+        run: box run-script format:check
 
       - name: Commit Format Changes
         uses: stefanzweifel/git-auto-commit-action@v4
