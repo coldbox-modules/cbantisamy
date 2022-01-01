@@ -42,14 +42,14 @@ component singleton threadsafe {
     /**
      * clean HTML from XSS scripts using the AntiSamy project. The available policies are basic, antisamy, ebay, myspace, slashdot, custom
      */
-    string function clean(required HTMLData, string policyFile = variables.defaultPolicy ) {
+    string function clean(required HTMLData, string policyFile = variables.defaultPolicy) {
         return HTMLSanitizer(argumentCollection = arguments);
     }
 
     /**
      * Checks whether HTML is safe from XSS scripts using the AntiSamy project. The available policies are basic, antisamy, ebay, myspace, slashdot, custom
      */
-    boolean function check(required HTMLData, string policyFile = variables.defaultPolicy ) {
+    boolean function check(required HTMLData, string policyFile = variables.defaultPolicy) {
         arguments.check = true;
         return HTMLSanitizer(argumentCollection = arguments);
     }

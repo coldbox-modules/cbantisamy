@@ -53,13 +53,13 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/root" {
                 }).toThrow('cbantisamy.AntiSamy.InvalidPolicyFile');
             });
 
-            it( 'clean method will always return a string', function(){
+            it('clean method will always return a string', function() {
                 var attack = 'guest<script>alert(''I am an attacker'')</script>';
                 var cleanedHTML = model.clean(attack);
                 expect(trim(cleanedHTML)).toBeString().toBe('guest');
             });
 
-            it( 'check method will always return a boolean', function(){
+            it('check method will always return a boolean', function() {
                 var attack = 'guest<script>alert(''I am an attacker'')</script>';
                 var safe = model.check(attack);
                 expect(safe).toBeFalse();
