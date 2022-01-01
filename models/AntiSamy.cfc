@@ -55,7 +55,7 @@ component singleton threadsafe {
      * @return HTMl data or boolean from check
      */
     any function HTMLSanitizer(required HTMLData, string policyFile = variables.defaultPolicy, boolean check = false) {
-        if (!variables.policies.keyExists(arguments.policyfile)) {
+        if (len(arguments.policyfile) && !variables.policies.keyExists(arguments.policyfile)) {
             throw(
                 type = 'cbantisamy.AntiSamy.InvalidPolicyFile',
                 message = 'The policy specified, #arguments.policyFile#, does not exist. Valid policies are #variables.policies.keyArray().toList()#'
