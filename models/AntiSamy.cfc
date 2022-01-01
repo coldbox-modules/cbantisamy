@@ -40,27 +40,33 @@ component singleton threadsafe {
     }
 
     /**
-     * clean HTML from XSS scripts using the AntiSamy project. The available policies are antisamy, ebay, myspace, slashdot, custom
+     * clean HTML from XSS scripts using the AntiSamy project. The available policies are basic, antisamy, ebay, myspace, slashdot, custom
      */
-    any function clean(required HTMLData, string policyFile = variables.defaultPolicy, boolean resultsObject = false) {
+    any function clean(required HTMLData, string policyFile = variables.defaultPolicy, boolean check = false) {
         return HTMLSanitizer(argumentCollection = arguments);
     }
 
     /**
-     * clean HTML from XSS scripts using the AntiSamy project. The available policies are antisamy, ebay, myspace, slashdot, custom
+     * clean HTML from XSS scripts using the AntiSamy project. The available policies are basic, antisamy, ebay, myspace, slashdot, custom
      * @HTMLData The html data to clean
-     * @policyFile The policy file to use, by default it uses the ebay policy file
-     * @resultsObject By default it just returns the cleaned HTML, but if this is true, it will return the actual Java results object.
+     * @policyFile The policy file to use, by default it uses the basic policy file
+     * @check By default it just returns the cleaned HTML, but if this is true, it will return the a boolean as to whether the HTML is safe.
      *
-     * @return HTMl data or an instance of org.owasp.validator.html.CleanResults
+     * @return HTMl data or boolean from check
      */
     any function HTMLSanitizer(
         required HTMLData,
         string policyFile = variables.defaultPolicy,
-        boolean resultsObject = false
+        boolean check = false
     ) {
-        if (engine == 'ADOBE') {
-            if (arguments.resultsObject) {
+        if( !variables.policies.keyExists( arguments.policyfile ) ){
+            throw(
+                type='cbantisamy.AntiSamy.InvalidPolicyFile',
+                message='The policy specified, #arguments.policyFile#, does not exist. Valid policies are #variables.policies.keyArray().toList()#'
+            );
+        }
+        if ( engine == 'ADOBE' ) {
+            if ( arguments.check ) {
                 return isSafeHTML(
                     arguments.htmlData,
                     len(arguments.policyFile) ? variables.policies[arguments.policyFile] : javacast('null', 0)
@@ -68,7 +74,7 @@ component singleton threadsafe {
             } else {
                 return getSafeHTML(
                     arguments.htmlData,
-                    len(arguments.policyFile) ? variables.policies[arguments.policyFile] : javacast('null', 0)
+                    len( arguments.policyFile ) ? variables.policies[arguments.policyFile] : javacast('null', 0)
                 );
             }
         } else {
@@ -92,14 +98,14 @@ component singleton threadsafe {
                 }
 
                 // Clean with policy
-                var cleanedHtml = antiSamy.scan(arguments.htmlData, variables.policies[arguments.policyFile]);
+                var cleanResult = antiSamy.scan(arguments.htmlData, variables.policies[arguments.policyFile]);
 
-                // returning results object or just clean HTML?
-                if (arguments.resultsObject) {
-                    return cleanedHtml;
+                // returning results object or just checking?
+                if (arguments.check) {
+                    return ! cleanResult.getNumberOfErrors();
                 }
 
-                return cleanedHTML.getCleanHTML();
+                return cleanResult.getCleanHTML();
             } catch (any e) {
                 rethrow;
             } finally {
