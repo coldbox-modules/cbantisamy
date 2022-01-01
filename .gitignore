@@ -5,6 +5,7 @@ settings.xml
 .netbeans
 .vscode
 tests/results/*
+test-harness/logs/*
 modules/cbjavaloader
 coldbox/*
 testbox/*
