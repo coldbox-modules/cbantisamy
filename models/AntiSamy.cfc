@@ -13,7 +13,7 @@ component singleton threadsafe {
     property name="javaLoader" inject="loader@cbjavaloader";
     property name="util" inject="coldbox.system.core.util.Util";
     property name="engine" default="ADOBE";
-    property name="defaultPolicy" default="ebay";
+    property name="defaultPolicy" default="basic";
 
     function onDIComplete() {
         if (server.coldfusion.productname eq 'Lucee') {
@@ -22,8 +22,8 @@ component singleton threadsafe {
             variables.defaultPolicy = '';
         }
         variables.policies = {
-            // AntiSamy policyfile
-            'antisamy': moduleSettings.libPath & '/antisamy-anythinggoes.xml',
+            // Basic Adobe/Lucee policyfile
+            'basic' : moduleSettings.libPath & '/antisamy-basic.xml',
             // Load eBay policyfile
             'ebay': moduleSettings.libPath & '/antisamy-ebay.xml',
             // Load myspace policyfile
@@ -32,6 +32,8 @@ component singleton threadsafe {
             'slashdot': moduleSettings.libPath & '/antisamy-slashdot.xml',
             // Load tinymce policyfile
             'tinymce': moduleSettings.libPath & '/antisamy-tinymce.xml',
+            // AntiSamy policyfile
+            'antisamy': moduleSettings.libPath & '/antisamy-anythinggoes.xml',
             // Custom Policy
             'custom': moduleSettings.customPolicy
         };
