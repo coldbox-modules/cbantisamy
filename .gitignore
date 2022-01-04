@@ -1,8 +1,11 @@
 .settings
+.engine
 logs/*.log
 settings.xml
 .netbeans
+.vscode
 tests/results/*
+test-harness/logs/*
 modules/cbjavaloader
 coldbox/*
 testbox/*
