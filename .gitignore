@@ -14,5 +14,4 @@ testbox/*
 artifacts/*
 apidocs/docbox/*
 workbench/*
-build/*
 changelog-latest.md
