@@ -37,6 +37,10 @@ component singleton threadsafe {
             // Custom Policy
             'custom': moduleSettings.customPolicy
         };
+	
+        if( moduleSettings.keyExists( "defaultPolicy" ) && len( moduleSettings.defaultPolicy ) ){
+            variables.defaultPolicy = moduleSettings.defaultPolicy;
+        }
     }
 
     /**
