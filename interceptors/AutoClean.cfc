@@ -12,7 +12,7 @@ component extends="coldbox.system.Interceptor"{
 	// On request capture
 	function onRequestCapture( event, interceptData, buffer, rc, prc ){
 		// if not activated, just exit
-		if( !getModuleSettings( "cbantisamy", "autoClean" ) ){ 
+		if( !getModuleSettings( "cbantisamy", "autoClean" ) || !event.getValue( "antisamy-autoclean", true ) ){ 
 			return; 
 		}
 
