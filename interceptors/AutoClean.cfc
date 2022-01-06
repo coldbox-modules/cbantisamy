@@ -12,16 +12,16 @@ component extends="coldbox.system.Interceptor"{
 	// On request capture
 	function onRequestCapture( event, interceptData, buffer, rc, prc ){
 		// if not activated, just exit
-		if( !getModuleSettings( "cbantisamy", "autoClean" ) || !event.getPrivateValue( "antisamy-autoclean", true ) ){ 
-			return; 
+		if( !getModuleSettings( "cbantisamy", "autoClean" ) || !event.getPrivateValue( "antisamy-autoclean", true ) ){
+			return;
 		}
 
-		rc.keyArray().each( 
+		rc.keyArray().each(
 			function( key ){
 				if( !isNull( rc[ key ] ) && isSimpleValue( rc[ key ] ) ){
-					rc[ key ] = antiSamy.clean( rc[ key ] );
+					rc[ key ] = variables.antiSamy.clean( rc[ key ] );
 				}
-			} 
+			}
 		);
 
 	}

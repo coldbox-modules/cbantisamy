@@ -12,7 +12,15 @@ component singleton threadsafe {
 	property name="moduleSettings" inject="coldbox:moduleSettings:cbantisamy";
 	property name="javaLoader"     inject="loader@cbjavaloader";
 	property name="util"           inject="coldbox.system.core.util.Util";
-	property name="engine"        default="ADOBE";
+
+	/**
+	 * Engine We are runnning
+	 */
+	property name="engine" default="ADOBE";
+
+	/**
+	 * Antisamy policy to use
+	 */
 	property name="defaultPolicy" default="basic";
 
 	function onDIComplete(){
@@ -23,58 +31,71 @@ component singleton threadsafe {
 		}
 		variables.policies = {
 			// Basic Adobe/Lucee policyfile
-			"basic"    : moduleSettings.libPath & "/antisamy-basic.xml",
+			"basic"    : variables.moduleSettings.libPath & "/antisamy-basic.xml",
 			// Load eBay policyfile
-			"ebay"     : moduleSettings.libPath & "/antisamy-ebay.xml",
+			"ebay"     : variables.moduleSettings.libPath & "/antisamy-ebay.xml",
 			// Load myspace policyfile
-			"myspace"  : moduleSettings.libPath & "/antisamy-myspace.xml",
+			"myspace"  : variables.moduleSettings.libPath & "/antisamy-myspace.xml",
 			// Load slashdot policyfile
-			"slashdot" : moduleSettings.libPath & "/antisamy-slashdot.xml",
+			"slashdot" : variables.moduleSettings.libPath & "/antisamy-slashdot.xml",
 			// Load tinymce policyfile
-			"tinymce"  : moduleSettings.libPath & "/antisamy-tinymce.xml",
+			"tinymce"  : variables.moduleSettings.libPath & "/antisamy-tinymce.xml",
 			// AntiSamy policyfile
-			"antisamy" : moduleSettings.libPath & "/antisamy-anythinggoes.xml",
+			"antisamy" : variables.moduleSettings.libPath & "/antisamy-anythinggoes.xml",
 			// Custom Policy
-			"custom"   : moduleSettings.customPolicy
+			"custom"   : variables.moduleSettings.customPolicy
 		};
 
-		if ( moduleSettings.keyExists( "defaultPolicy" ) && len( moduleSettings.defaultPolicy ) ) {
-			variables.defaultPolicy = moduleSettings.defaultPolicy;
+		if ( variables.moduleSettings.keyExists( "defaultPolicy" ) && len( variables.moduleSettings.defaultPolicy ) ) {
+			variables.defaultPolicy = variables.moduleSettings.defaultPolicy;
 		}
 	}
 
 	/**
-	 * clean HTML from XSS scripts using the AntiSamy project. The available policies are basic, antisamy, ebay, myspace, slashdot, custom
+	 * Clean HTML from XSS scripts using the AntiSamy project. The available policies are basic, antisamy, ebay, myspace, slashdot, custom
+	 *
+	 * @htmlData   The html data to clean
+	 * @policyFile The policy file to use. Defaults to the one in the configuration file
+	 *
+	 * @return sanitized html data
 	 */
-	string function clean( required HTMLData, string policyFile = variables.defaultPolicy ){
+	string function clean( required htmlData, string policyFile = variables.defaultPolicy ){
 		return HTMLSanitizer( argumentCollection = arguments );
 	}
 
 	/**
 	 * Checks whether HTML is safe from XSS scripts using the AntiSamy project. The available policies are basic, antisamy, ebay, myspace, slashdot, custom
+	 *
+	 * @htmlData   The html data to clean
+	 * @policyFile The policy file to use. Defaults to the one in the configuration file
+	 *
+	 * @return True if it is safe, false if not
 	 */
-	boolean function check( required HTMLData, string policyFile = variables.defaultPolicy ){
+	boolean function check( required htmlData, string policyFile = variables.defaultPolicy ){
 		arguments.check = true;
 		return HTMLSanitizer( argumentCollection = arguments );
 	}
 
 	/**
-	 * clean HTML from XSS scripts using the AntiSamy project. The available policies are basic, antisamy, ebay, myspace, slashdot, custom
+	 * Clean HTML from XSS scripts using the AntiSamy project. The available policies are basic, antisamy, ebay, myspace, slashdot, custom
 	 *
-	 * @HTMLData   The html data to clean
+	 * @htmlData   The html data to clean
 	 * @policyFile The policy file to use, by default it uses the basic policy file
 	 * @check      By default it just returns the cleaned HTML, but if this is true, it will return the a boolean as to whether the HTML is safe.
 	 *
 	 * @return HTMl data or boolean from check
+	 *
+	 * @throws cbantisamy.InvalidPolicyFile      - When the passed policy is invalid
+	 * @throws cbantisamy.InvalidPolicyException - When the default policy is invalid
 	 */
-	any function HTMLSanitizer(
-		required HTMLData,
+	any function htmlSanitizer(
+		required htmlData,
 		string policyFile = variables.defaultPolicy,
 		boolean check     = false
 	){
 		if ( len( arguments.policyfile ) && !variables.policies.keyExists( arguments.policyfile ) ) {
 			throw(
-				type    = "cbantisamy.AntiSamy.InvalidPolicyFile",
+				type    = "cbantisamy.InvalidPolicyFile",
 				message = "The policy specified, #arguments.policyFile#, does not exist. Valid policies are #variables.policies.keyArray().toList()#"
 			);
 		}
@@ -112,7 +133,7 @@ component singleton threadsafe {
 					throw(
 						message = "Invalid Policy File: #arguments.policyFile#",
 						detail  = "The available policy files are #structKeyList( variables.policies )#",
-						type    = "AntiSamy.InvalidPolicyException"
+						type    = "cbantisamy.InvalidPolicyException"
 					);
 				}
 
