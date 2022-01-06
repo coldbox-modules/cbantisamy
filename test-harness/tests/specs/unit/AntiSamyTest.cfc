@@ -50,7 +50,7 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/root" {
 			it( "Will throw an error if an invalid policy file is specified", function(){
 				expect( function(){
 					return model.HTMLSanitizer( "<p>Foo</p>", "foo" );
-				} ).toThrow( "cbantisamy.AntiSamy.InvalidPolicyFile" );
+				} ).toThrow( "cbantisamy.InvalidPolicyFile" );
 			} );
 
 			it( "clean method will always return a string", function(){
