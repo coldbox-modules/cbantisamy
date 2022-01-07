@@ -139,15 +139,6 @@ component singleton threadsafe {
 			// you can use any xml, our your own customised policy xml
 			var antiSamy = javaLoader.create( "org.owasp.validator.html.AntiSamy" );
 
-			// validate policy file
-			if ( NOT structKeyExists( variables.POLICIES, arguments.policyFile ) ) {
-				throw(
-					message = "Invalid Policy File: #arguments.policyFile#",
-					detail  = "The available policy files are #structKeyList( variables.POLICIES )#",
-					type    = "cbantisamy.InvalidPolicyException"
-				);
-			}
-
 			// Clean with policy
 			var cleanResult = antiSamy.scan( arguments.htmlData, variables.POLICIES[ arguments.policyFile ] );
 
