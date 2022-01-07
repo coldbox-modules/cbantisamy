@@ -21,15 +21,14 @@ component singleton threadsafe {
 	/**
 	 * Antisamy policy to use
 	 */
-	property name="defaultPolicy" default="basic";
+	property name="defaultPolicy" default="ebay";
 
 	function onDIComplete(){
-		if ( server.coldfusion.productname eq "Lucee" ) {
-			variables.engine = "LUCEE";
-		} else {
-			variables.defaultPolicy = "";
-		}
-		variables.policies = {
+		// Engine selector
+		variables.engine = server.keyExists( "lucee" ) ? "LUCEE" : "ADOBE";
+
+		// Static Lookup
+		variables.POLICIES = {
 			// Basic Adobe/Lucee policyfile
 			"basic"    : variables.moduleSettings.libPath & "/antisamy-basic.xml",
 			// Load eBay policyfile
@@ -46,8 +45,16 @@ component singleton threadsafe {
 			"custom"   : variables.moduleSettings.customPolicy
 		};
 
+		// set and verify policy according to settings
 		if ( variables.moduleSettings.keyExists( "defaultPolicy" ) && len( variables.moduleSettings.defaultPolicy ) ) {
-			variables.defaultPolicy = variables.moduleSettings.defaultPolicy;
+			if ( variables.POLICIES.keyExists( variables.moduleSettings.defaultPolicy ) ) {
+				variables.defaultPolicy = variables.moduleSettings.defaultPolicy;
+			} else {
+				throw(
+					type    = "cbantisamy.InvalidPolicyFile",
+					message = "The policy specified, #variables.moduleSettings.defaultPolicy#, is not valid.. Valid policies are #variables.POLICIES.keyArray().toList()#"
+				);
+			}
 		}
 	}
 
@@ -93,17 +100,19 @@ component singleton threadsafe {
 		string policyFile = variables.defaultPolicy,
 		boolean check     = false
 	){
-		if ( len( arguments.policyfile ) && !variables.policies.keyExists( arguments.policyfile ) ) {
+		if ( len( arguments.policyfile ) && !variables.POLICIES.keyExists( arguments.policyfile ) ) {
 			throw(
 				type    = "cbantisamy.InvalidPolicyFile",
-				message = "The policy specified, #arguments.policyFile#, does not exist. Valid policies are #variables.policies.keyArray().toList()#"
+				message = "The policy specified, #arguments.policyFile#, does not exist. Valid policies are #variables.POLICIES.keyArray().toList()#"
 			);
 		}
-		if ( engine == "ADOBE" ) {
+
+		// Adobe implementation
+		if ( variables.engine == "ADOBE" ) {
 			if ( arguments.check ) {
 				return isSafeHTML(
 					arguments.htmlData,
-					len( arguments.policyFile ) ? variables.policies[ arguments.policyFile ] : javacast(
+					len( arguments.policyFile ) ? variables.POLICIES[ arguments.policyFile ] : javacast(
 						"null",
 						0
 					)
@@ -111,50 +120,51 @@ component singleton threadsafe {
 			} else {
 				return getSafeHTML(
 					arguments.htmlData,
-					len( arguments.policyFile ) ? variables.policies[ arguments.policyFile ] : javacast(
+					len( arguments.policyFile ) ? variables.POLICIES[ arguments.policyFile ] : javacast(
 						"null",
 						0
 					)
 				);
 			}
-		} else {
-			var _thread            = createObject( "java", "java.lang.Thread" );
-			var currentClassloader = _thread.currentThread().getContextClassLoader();
+		}
 
-			try {
-				// Overide due to class cast exceptions
-				_thread.currentThread().setContextClassLoader( javaloader.getURLClassLoader() );
+		// Lucee Implementation
+		var _thread            = createObject( "java", "java.lang.Thread" );
+		var currentClassloader = _thread.currentThread().getContextClassLoader();
 
-				// you can use any xml, our your own customised policy xml
-				var antiSamy = javaLoader.create( "org.owasp.validator.html.AntiSamy" );
+		try {
+			// Overide due to class cast exceptions
+			_thread.currentThread().setContextClassLoader( javaloader.getURLClassLoader() );
 
-				// validate policy file
-				if ( NOT structKeyExists( variables.policies, arguments.policyFile ) ) {
-					throw(
-						message = "Invalid Policy File: #arguments.policyFile#",
-						detail  = "The available policy files are #structKeyList( variables.policies )#",
-						type    = "cbantisamy.InvalidPolicyException"
-					);
-				}
+			// you can use any xml, our your own customised policy xml
+			var antiSamy = javaLoader.create( "org.owasp.validator.html.AntiSamy" );
 
-				// Clean with policy
-				var cleanResult = antiSamy.scan( arguments.htmlData, variables.policies[ arguments.policyFile ] );
-
-				// returning results object or just checking?
-				if ( arguments.check ) {
-					return !cleanResult.getNumberOfErrors();
-				}
-
-				return cleanResult.getCleanHTML();
-			} catch ( any e ) {
-				rethrow;
-			} finally {
-				/*
-					We have to reset the classloader, due to
-					thread pooling.
-				*/
-				_thread.currentThread().setContextClassLoader( currentClassloader );
+			// validate policy file
+			if ( NOT structKeyExists( variables.POLICIES, arguments.policyFile ) ) {
+				throw(
+					message = "Invalid Policy File: #arguments.policyFile#",
+					detail  = "The available policy files are #structKeyList( variables.POLICIES )#",
+					type    = "cbantisamy.InvalidPolicyException"
+				);
 			}
+
+			// Clean with policy
+			var cleanResult = antiSamy.scan( arguments.htmlData, variables.POLICIES[ arguments.policyFile ] );
+
+			// returning results object or just checking?
+			if ( arguments.check ) {
+				return !cleanResult.getNumberOfErrors();
+			}
+
+			return cleanResult.getCleanHTML();
+		} catch ( any e ) {
+			rethrow;
+		} finally {
+			/*
+				We have to reset the classloader, due to
+				thread pooling.
+			*/
+			_thread.currentThread().setContextClassLoader( currentClassloader );
 		}
 	}
 
