@@ -7,21 +7,17 @@
 component {
 
 	// Module Properties
-	this.title               = "AntiSamy";
-	this.author              = "Ortus Solutions, Corp";
-	this.webURL              = "http://www.ortussolutions.com";
-	this.description         = "Leverages the AntiSamy libraries for XSS cleanups";
-	this.version             = "@build.version@+@build.number@";
-	// If true, looks for views in the parent first, if not found, then in the module. Else vice-versa
-	this.viewParentLookup    = false;
-	// If true, looks for layouts in the parent first, if not found, then in module. Else vice-versa
-	this.layoutParentLookup  = false;
+	this.title             = "AntiSamy";
+	this.author            = "Ortus Solutions, Corp";
+	this.webURL            = "https://www.ortussolutions.com";
+	this.description       = "Leverages the AntiSamy libraries for XSS cleanups";
+	this.version           = "@build.version@+@build.number@";
 	// CF Mapping
-	this.cfmapping           = "cbantisamy";
+	this.cfmapping         = "cbantisamy";
 	// Module Dependencies That Must Be Loaded First, use internal names or aliases
-	this.dependencies        = [ "cbjavaloader" ];
-	// Auto-parse parent settings
-	this.parseParentSettings = true;
+	this.dependencies      = [ "cbjavaloader" ];
+	// Helpers
+	this.applicationHelper = [ "helpers/mixins.cfm" ];
 
 	function configure(){
 		// Default settings

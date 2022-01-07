@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changes the HTMLSanitizer method to use the native adobe `getSafeHTML()` and `isSafeHTML()` methods when on ACF
 - Updates module registration to use the Coldbox 5+ conventions ( Module configuration now nested in `moduleSettings` )
 - Changes the `autoClean` module configuration setting to default to `true`. This is opinionated but also makes this module more "plug and play"
-- Adds a `basic` policy file, and sets it as the default. This policy file is the same default policy file used by ACF
+- Adds a `basic` policy file. This policy file is the same default policy file used by ACF
 - Renames the `resultsObject` argument in `HTMLSanitizer.cfc` method to check and changes it to return a boolean, to allow for consistent return types between ACF and Lucee
 - Remove the `check` argument from the `clean` method and adds a `check` method in `AntiSamy.cfc`
 
@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- New helper methods: `antisamyClean(), antisamyCheck()`
 - Adds additional tests for return types
 
 ----
