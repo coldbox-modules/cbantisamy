@@ -1,12 +1,17 @@
-.settings
-logs/*.log
-settings.xml
-.netbeans
-tests/results/*
-modules/cbjavaloader
-coldbox/*
-testbox/*
-artifacts/*
-apidocs/docbox/*
-workbench/build.number
-build/*
+.artifacts/**
+.tmp/**
+
+test-harness/.env
+test-harness/.engine/**
+test-harness/coldbox/**
+test-harness/docbox/**
+test-harness/testbox/**
+test-harness/logs/**
+test-harness/modules/**
+test-harness/WEB-INF/**
+
+# dependcies
+modules
+
+# log files
+logs/**
