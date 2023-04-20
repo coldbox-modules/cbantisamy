@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ----
 
+## [Unreleased]
+
+### Added
+
+- Github actions
+- Github supprt files
+- Upgraded to AntiSamy 1.7.3
+
 ## [2.0.0] => 2022-01
 
 ### Changed
@@ -30,8 +38,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New helper methods: `antisamyClean(), antisamyCheck()`
 - Adds additional tests for return types
 
-----
-
 ## [1.4.0] => 2017-03
 
 ### Updated
@@ -40,15 +46,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update of all dependencies
 - Updated antisamy to version 1.5.7
 
-----
-
 ## [1.3.1] => 2017-03
 
 ### Updated
 
 - Unified workbench
-
-----
 
 ## [1.3.0] => 2016-03
 
@@ -59,8 +61,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - JavaLoader dependencies updated
 - DocBox udpates
 
-----
-
 ## [1.2.0] => 2015-08
 
 ### Updated
@@ -68,8 +68,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated readme locations
 - `Autoclean` property not respecting proper boolean value
 - Updated build process to CommandBox
-
-----
 
 ## [1.1.0] => 2015-08
 
@@ -80,8 +78,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Defaults for configuration setup differently to avoid collisions
-
-----
 
 ## [1.0.0] => 2014-11
 

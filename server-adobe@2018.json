@@ -10,10 +10,14 @@
         },
         "rewrites":{
             "enable":"true"
-		},
-		"aliases":{
+        },
+        "webroot":"test-harness",
+        "aliases":{
             "/moduleroot/cbantisamy":"../"
         }
     },
-    "openBrowser":"false"
+    "openBrowser":"false",
+    "cfconfig":{
+        "file":".cfconfig.json"
+    }
 }
