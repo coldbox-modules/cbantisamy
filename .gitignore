@@ -1,17 +1,23 @@
+# Artifacts and temp folders
 .artifacts/**
 .tmp/**
 
-test-harness/.env
-test-harness/.engine/**
+# Engine + Secrets + databases
+.env
+.engine/**
+.db/**
+
+# Dependencies
+modules/**
 test-harness/coldbox/**
 test-harness/docbox/**
 test-harness/testbox/**
 test-harness/logs/**
 test-harness/modules/**
-test-harness/WEB-INF/**
-
-# dependcies
-modules
 
 # log files
 logs/**
+
+# UI Build Process
+includes/**
+node_modules/**

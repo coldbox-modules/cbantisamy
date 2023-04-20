@@ -11,9 +11,16 @@
         "rewrites":{
             "enable":"true"
         },
+        "webroot":"test-harness",
         "aliases":{
             "/moduleroot/cbantisamy":"../"
         }
     },
-    "openBrowser":"false"
+    "openBrowser":"false",
+    "cfconfig":{
+        "file":".cfconfig.json"
+    },
+    "scripts":{
+        "onServerInstall":"cfpm install zip,debugger"
+    }
 }
