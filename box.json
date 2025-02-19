@@ -1,7 +1,7 @@
 {
     "name":"AntiSamy",
     "author":"Ortus Solutions.com <info@ortussolutions.com>",
-    "version":"2.2.0",
+    "version":"2.3.0",
     "location":"https://downloads.ortussolutions.com/ortussolutions/coldbox-modules/cbantisamy/@build.version@/cbantisamy-@build.version@.zip",
     "slug":"cbantisamy",
     "type":"modules",
@@ -27,7 +27,7 @@
         "cbjavaloader":"^2"
     },
     "devDependencies":{
-		"commandbox-boxlang":"*",
+        "commandbox-boxlang":"*",
         "commandbox-cfformat":"*",
         "commandbox-docbox":"*"
     },
