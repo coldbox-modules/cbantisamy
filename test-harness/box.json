@@ -7,7 +7,7 @@
         "cbjavaloader":"^2"
     },
     "devDependencies":{
-        "testbox":"^4"
+        "testbox":"*"
     },
     "installPaths":{
         "coldbox":"coldbox/",

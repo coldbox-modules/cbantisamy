@@ -13,6 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- BoxLang certs
+- Github Actions updates
+
+## [2.1.0] - 2023-04-20
+
+### Added
+
 -   Github actions
 -   Github supprt files
 -   Upgraded to AntiSamy 1.7.3
