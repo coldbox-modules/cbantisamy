@@ -16,6 +16,9 @@
             "/moduleroot/cbantisamy":"../"
         }
     },
+	"JVM":{
+        "javaVersion":"openjdk11_jre"
+    },
     "openBrowser":"false",
     "cfconfig":{
         "file":".cfconfig.json"
