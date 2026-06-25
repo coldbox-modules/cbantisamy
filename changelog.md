@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-06-25
+
 ## [2.2.0] - 2025-02-19
 
 ## [2.1.0] - 2023-04-20
@@ -96,6 +98,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Create first module version
 
-[unreleased]: https://github.com/coldbox-modules/cbantisamy/compare/v2.2.0...HEAD
+[unreleased]: https://github.com/coldbox-modules/cbantisamy/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/coldbox-modules/cbantisamy/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/coldbox-modules/cbantisamy/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/coldbox-modules/cbantisamy/compare/7ab109d61d824bd5da70332cc52d01133530d8d4...v2.1.0
