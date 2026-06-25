@@ -85,6 +85,8 @@ Here are the module settings you can place in your `ColdBox.cfc` under an `antis
 // Antisamy settings
 moduleSettings = {
     "cbantisamy" : {
+        // Automatically register the auto clean interceptor
+        autoRegisterInterceptor = true,
         // Activate auto request capture cleanups interceptor
         autoClean = true,
         // Default Policy to use, available are: antisamy, ebay, myspace, slashdot and tinymce

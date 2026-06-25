@@ -23,22 +23,16 @@ component {
 		// Default settings
 		settings = {
 			// The library path
-			libPath       : modulePath & "/models/lib",
+			libPath                 : modulePath & "/models/lib",
+			// Automatically register the auto clean interceptor
+			autoRegisterInterceptor : true,
 			// Activate auto request capture cleanups
-			autoClean     : true,
+			autoClean               : true,
 			// Default Policy to use, available are: antisamy, ebay, myspace, slashdot and tinymce
-			defaultPolicy : "ebay",
+			defaultPolicy           : "ebay",
 			// Custom Policy absolute path, leave empty if not used
-			customPolicy  : ""
+			customPolicy            : ""
 		};
-
-		// Custom Declared Interceptors
-		interceptors = [
-			{
-				class : "#this.cfmapping#.interceptors.AutoClean",
-				name  : "AutoClean@CBAntiSamy"
-			}
-		];
 	}
 
 	/**
@@ -50,6 +44,15 @@ component {
 			.getWireBox()
 			.getInstance( "loader@cbjavaloader" )
 			.appendPaths( settings.libPath );
+
+		if ( settings.autoRegisterInterceptor ) {
+			controller
+				.getInterceptorService()
+				.registerInterceptor(
+					interceptorName  = "AutoClean@CBAntiSamy",
+					interceptorClass = "#this.cfmapping#.interceptors.AutoClean"
+				);
+		}
 	}
 
 }
