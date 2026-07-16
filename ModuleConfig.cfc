@@ -28,6 +28,8 @@ component {
 			autoRegisterInterceptor : true,
 			// Activate auto request capture cleanups
 			autoClean               : true,
+			// Keys to exclude from auto clean. Use an array/list for global keys, or a struct with "*", "handler.action", or "handler.*" keys
+			autoCleanExclusions     : {},
 			// Default Policy to use, available are: antisamy, ebay, myspace, slashdot and tinymce
 			defaultPolicy           : "ebay",
 			// Custom Policy absolute path, leave empty if not used

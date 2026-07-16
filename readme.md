@@ -89,6 +89,14 @@ moduleSettings = {
         autoRegisterInterceptor = true,
         // Activate auto request capture cleanups interceptor
         autoClean = true,
+        // Exclude request collection keys from auto clean globally or by event pattern
+        autoCleanExclusions = {
+            "*" = [ "csrfToken" ],
+            "main.login" = [ "password" ],
+            "api.*" = [ "payloadJSON" ],
+            "api-v1:Trips.*" = [ "rawNotes" ],
+            "api-v1:*" = [ "requestSignature" ]
+        },
         // Default Policy to use, available are: antisamy, ebay, myspace, slashdot and tinymce
         defaultPolicy = "ebay",
         // Custom Policy absolute path, leave empty if not used
@@ -96,6 +104,18 @@ moduleSettings = {
     }
 };
 ```
+
+### Auto Clean Action Exclusions
+
+The auto clean interceptor cleans every simple value in the request collection by default.  If an action needs to receive a raw value, add the `antisamyAutoCleanExclusions` annotation to the handler method with a comma-delimited list of request collection keys to skip:
+
+```js
+function login( event, rc, prc ) antisamyAutoCleanExclusions="password"{
+    // rc.password is not cleaned by the auto clean interceptor for this action.
+}
+```
+
+You can also configure exclusions in module settings using `*` for global exclusions, exact events like `main.login`, handler wildcards like `api.*`, module handler wildcards like `api-v1:Trips.*`, or module wildcards like `api-v1:*`. Configured exclusions and action annotations are merged for the current request.
 
 You can read more about AntiSamy here: https://www.owasp.org/index.php/Category:OWASP_AntiSamy_Project
 

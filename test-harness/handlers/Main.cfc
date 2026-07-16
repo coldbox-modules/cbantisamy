@@ -1,12 +1,16 @@
 /**
-* My Event Handler Hint
-*/
-component{
+ * My Event Handler Hint
+ */
+component {
 
 	property name="antisamy" inject="antisamy@cbantisamy";
 
 	// Index
-	any function index( event,rc, prc ){
+	any function index( event, rc, prc ) antisamyAutoCleanExclusions="password"{
+		rc.data = antisamy.clean( event.getValue( "data", "no data sent" ) );
+	}
+
+	any function configDriven( event, rc, prc ){
 		rc.data = antisamy.clean( event.getValue( "data", "no data sent" ) );
 	}
 
