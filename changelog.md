@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- New `autoCleanExclusions` module setting to exclude specific request collection keys from auto-cleaning globally or scoped to event patterns (`*`, `handler.action`, `handler.*`, `module:handler.*`, `module:*`)
+- New `antisamyAutoCleanExclusions` annotation support on handler action methods to declare per-action RC key exclusions at the source
+- New `antisamy-autoclean-exclusions` private request value to configure exclusions dynamically at runtime
+- Comprehensive tests for all AutoClean exclusion control mechanisms
+
 ## [2.3.0] - 2026-06-25
 
 ## [2.2.0] - 2025-02-19
