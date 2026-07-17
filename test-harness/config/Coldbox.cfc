@@ -52,6 +52,16 @@ component{
 		interceptors = [
 		];
 
+		moduleSettings = {
+			cbantisamy : {
+				autoCleanExclusions : {
+					"main.configDriven" : [ "apiToken" ],
+					"api-v1:Trips.*" : [ "moduleToken" ],
+					"api-v1:*" : [ "moduleSignature" ]
+				}
+			}
+		};
+
 		//LogBox DSL
 		logBox = {
 			// Define Appenders
