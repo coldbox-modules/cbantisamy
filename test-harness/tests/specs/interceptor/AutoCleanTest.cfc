@@ -40,6 +40,17 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/root" {
 				expect( rc.password ).toBe( "secret<script>alert('leave me alone')</script>" );
 			} );
 
+			it( "should skip array-valued exclusions annotated on an action", function(){
+				url.data        = "guest<script>alert('I am an attacker')</script>";
+				url.password    = "secret<script>alert('leave me alone')</script>";
+				url.payloadJSON = "{""markup"":""<script>leave me alone</script>""}";
+				var event       = execute( "ArrayMetadata.index" );
+				var rc          = event.getCollection();
+				expect( rc.data ).toBe( "guest" );
+				expect( rc.password ).toBe( "secret<script>alert('leave me alone')</script>" );
+				expect( rc.payloadJSON ).toBe( "{""markup"":""<script>leave me alone</script>""}" );
+			} );
+
 			it( "should skip auto clean exclusions configured for the current event", function(){
 				url.data     = "guest<script>alert('I am an attacker')</script>";
 				url.apiToken = "token<script>alert('leave me alone')</script>";

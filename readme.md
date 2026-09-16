@@ -117,6 +117,15 @@ function login( event, rc, prc ) antisamyAutoCleanExclusions="password"{
 
 You can also configure exclusions in module settings using `*` for global exclusions, exact events like `main.login`, handler wildcards like `api.*`, module handler wildcards like `api-v1:Trips.*`, or module wildcards like `api-v1:*`. Configured exclusions and action annotations are merged for the current request.
 
+BoxLang action metadata can use an array when excluding multiple keys:
+
+```js
+@antisamyAutoCleanExclusions( [ "password", "payloadJSON" ] )
+function login( event, rc, prc ) {
+	// Both keys are left untouched by the auto clean interceptor.
+}
+```
+
 You can read more about AntiSamy here: https://www.owasp.org/index.php/Category:OWASP_AntiSamy_Project
 
 ********************************************************************************

@@ -118,7 +118,13 @@ component extends="coldbox.system.Interceptor" {
 			var handlerService = controller.getHandlerService();
 			var handlerBean    = handlerService.getHandlerBean( currentEvent );
 			var action         = handlerBean.getMethod();
-			var actionMetadata = getComponentActionMetadata( handlerBean.getRunnable(), action );
+			var actionMetadata = {};
+
+			try {
+				actionMetadata = getComponentActionMetadata( handlerBean.getRunnable(), action );
+			} catch ( any ignored ) {
+				// Native BoxLang handlers may not be available through CFML component metadata.
+			}
 
 			if ( structIsEmpty( actionMetadata ) ) {
 				var handler    = handlerService.newHandler( handlerBean );
