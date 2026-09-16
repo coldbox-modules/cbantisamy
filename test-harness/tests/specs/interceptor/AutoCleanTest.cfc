@@ -41,6 +41,10 @@ component extends="coldbox.system.testing.BaseTestCase" appMapping="/root" {
 			} );
 
 			it( "should skip array-valued exclusions annotated on an action", function(){
+				if ( !isBoxLang() ) {
+					return;
+				}
+
 				url.data        = "guest<script>alert('I am an attacker')</script>";
 				url.password    = "secret<script>alert('leave me alone')</script>";
 				url.payloadJSON = "{""markup"":""<script>leave me alone</script>""}";
